@@ -1,0 +1,135 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* 
+#####################################
+# ash stuff INTERNAL
+#####################################
+*/
+
+/*body {*/
+/*    font-family: 'Saira Condensed', 'Open Sans', sans-serif;*/
+/*}*/
+
+/*h1, h2, h3, h4, h5, h6 {*/
+/*    font-family: 'Orbitron', sans-serif;*/
+/*}*/
+
+.btn {
+    text-decoration: none;
+}
+
+
+.prose {
+    max-width: 669px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prose img {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.prose figure {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.prose h2.card-title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*figure img {*/
+/* max-width: 100px;*/
+/*    transition: 0.8s;*/
+/*}*/
+
+/*figure img:hover {*/
+/* max-width: 700px;*/
+/*    transition: 0.8s;*/
+/*    position: left center no-repeat;*/
+/*}*/
+
+
+p {
+    text-align: justify;
+}
+
+body {
+
+    height: 100vh;
+
+    /*background: url("http://1-background.com/images/ultraviolet/black-dreams-in-ultraviolet-website-background.jpg") no-repeat center center fixed; */
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+
+}
+
+
+/*.back-img{*/
+/*  height: 100vh;*/
+/*  width: 100vh;*/
+/*  position: relative;*/
+/*  background-size: cover;*/
+/*  background-position: 50% 50%;*/
+/*  background-img: */
+/*}*/
+
+
+#announc3ment {
+    --aug-clip-tl1: initial;
+    --aug-round-tr1: initial;
+    --aug-clip-br1: initial;
+    --aug-round-bl1: initial;
+    --aug-border: initial;
+    --aug-inlay: initial;
+    --aug-border-all: 1px;
+    --aug-inlay-all: 2px;
+    --aug-border-bg: lime;
+    --aug-inlay-bg: lime;
+    --aug-inlay-opacity: 0.06;
+    --aug-tl1: 40px;
+    --aug-br1: 40px;
+    --aug-tr1: 10px;
+    --aug-bl1: 10px;
+    color: #cccccc;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-width: 66%;
+    margin: 0.25rem auto;
+    font-size: 0.9rem;
+    /*background: url("/img/chubie.png") right 30px bottom 10px / auto 75% no-repeat;*/
+}
+
+#announc3ment:hover {
+    --aug-inlay-opacity: 0.1;
+}
+
+#announc3ment::before {
+    transition: opacity 1s ease-in;
+}
+
+#announc3ment:hover::before {
+    transition: opacity 1s ease-in 3s;
+}
+
+#announc3ment b {
+    color: white;
+    font-size: 1rem;
+}
+
+
+/* 
+#####################################
+# JIT tailwind/daisy stuff 
+#####################################
+*/
+

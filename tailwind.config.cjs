@@ -1,146 +1,85 @@
 /** @type {import('tailwindcss').Config} */
-
-const FONT_FAMILY_BASE = [
-	'system-ui',
-	'-apple-system',
-	'BlinkMacSystemFont',
-	'Segoe UI',
-	'Roboto',
-	'Oxygen',
-	'Ubuntu',
-	'Cantarell',
-	'Open Sans',
-	'Helvetica Neue',
-	'sans-serif',
-]
-
 module.exports = {
-	corePlugins: {
-		container: false,
-	},
-	content: ['./src/**/*.{astro,html,js,jsx,svelte,ts,tsx,vue}'],
-	theme: {
-		fontFamily: {
-			body: FONT_FAMILY_BASE,
-			display: ['RT Alias Medium', ...FONT_FAMILY_BASE],
-			mono: [
-				'Menlo',
-				'Monaco',
-				'Lucida Console',
-				'Liberation Mono',
-				'DejaVu Sans Mono',
-				'Bitstream Vera Sans Mono',
-				'Courier New',
-				'monospace',
-			],
-		},
-		fontSize: {
-			xs: 'clamp(0.7rem, 0.66rem + 0.2vw, 0.8rem)',
-			sm: 'clamp(0.88rem, 0.83rem + 0.24vw, 1rem)',
-			base: 'clamp(1.09rem, 1rem + 0.47vw, 1.33rem)',
-			lg: 'clamp(1.37rem, 1.21rem + 0.8vw, 1.78rem)',
-			xl: 'clamp(1.71rem, 1.45rem + 1.29vw, 2.37rem)',
-			'2xl': 'clamp(2.14rem, 1.74rem + 1.99vw, 3.16rem)',
-			'3xl': 'clamp(2.67rem, 2.07rem + 3vw, 4.21rem)',
-			'4xl': 'clamp(3.34rem, 2.45rem + 4.43vw, 5.61rem)',
-		},
-		extend: {
-			colors: {
-				white: '#fefeff',
-				black: '#000',
-				transparent: 'transparent',
-				tan: '#f4efed',
-				dawn: '#f3e9fa',
-				dusk: '#514375',
-				midnight: '#31274a',
-				blue: '#1d5bfc',
-				red: '#ff5050',
-				yellow: '#ffd542',
-				purple: '#af43ff',
-				pink: '#fdb2b7',
-				pop: {
-					1: 'linear-gradient(180deg, #1d5bfc 0%, #c238bd 115%)',
-				},
-			},
-			typography: ({ theme }) => {
-				const headings = {
-					'h1, h2, h3, h4, h5, h6': {
-						fontFamily: 'var(--font-display)',
-						fontWeight: 'bold',
-						lineHeight: 1.1,
-						textAlign: 'inherit',
-					},
-					h1: {
-						fontSize: theme('fontSize.3xl'),
-					},
-					h2: {
-						fontSize: theme('fontSize.2xl'),
-					},
-					h3: {
-						fontSize: theme('fontSize.xl'),
-					},
-					h4: {
-						fontSize: theme('fontSize.lg'),
-					},
-					h5: {
-						fontSize: theme('fontSize.sm'),
-					},
-					h6: {
-						fontSize: theme('fontSize.xs'),
-					},
-				}
-
-				return {
-					DEFAULT: {
-						css: {
-							maxWidth: '75ch',
-							fontSize: 'var(--size-500)',
-							lineHeight: '1.5',
-							// override @tailwindcss/typography colors
-							'--tw-prose-body': theme('colors.midnight'),
-							'--tw-prose-headings': theme('colors.dusk'),
-							'--tw-prose-links': theme('colors.blue'),
-							'--tw-prose-code': theme('colors.purple'),
-							'--tw-prose-pre-bg':
-								'linear-gradient(to bottom,var(--color-midnight),#1f1638)',
-							'--tw-prose-pre-code': theme('colors.white'),
-							'--tw-prose-bullets': 'rgba(var(--color-midnight-rgb), 0.5)',
-							':focus-visible': {
-								outline: '2px dashed var(--color-blue)',
-							},
-							...headings,
-							a: {
-								textDecoration: 'none',
-								fontWeight: 400,
-								wordBreak: 'break-word',
-								'&:hover': {
-									textDecoration: 'underline',
-								},
-								'> code': {
-									color: 'var(--tw-prose-code)',
-								},
-							},
-						},
-					},
-					sm: {
-						...headings,
-					},
-					md: {
-						...headings,
-					},
-					lg: {
-						...headings,
-					},
-					xl: {
-						...headings,
-					},
-				}
-			},
-		},
-	},
+	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+    theme: {
+        extend: {
+            backdropBrightness: {
+                25: ".25",
+            },
+            colors: require("daisyui/src/colors"),
+        },
+    },
 	plugins: [
-
 		require('@tailwindcss/typography'),
-		require("daisyui"),
+		require("daisyui")
+		// ...
 	],
+    daisyui: {
+        styled: true,
+        base: true,
+        utils: true,
+        logs: true,
+        rtl: false,
+        themes: [
+
+            {
+
+                ashdark: {
+                    "h1, h2, h3, h4, h5, h6": {
+                        "text-shadow": "0 0 10px accent",
+                    },
+					
+                    primary: "#026087",
+                    "primary-focus": "#33ff33",
+                    "primary-content": "#1b1c22",
+                    secondary: "#00cc66",
+                    "secondary-focus": "#b030fe",
+                    "secondary-content": "#1b1c22",
+                    accent: "#d90368",
+                    "accent-focus": "#ff9326",
+                    "accent-content": "#1b1c22",
+                    neutral: "#eeeeee",
+                    "neutral-focus": "#c0d3ff",
+                    "neutral-content": "#1b1c22",
+                    "base-100": "#000d26",
+                    "base-200": "#000F2e",
+                    "base-300": "#000f4e",
+                    "base-content": "#eeeeee",
+                    info: "#414bb2",
+                    success: "#9510ac",
+                    warning: "#db663a",
+                    error: "#f1c40f",
+                    "bdheading":"#026087",
+                    "bdpurple":"#9510ac",
+                    "bdpink":"#d90368",
+                    "bdorange": "#db663a",
+                    "dbyellow":"#f1c40f",
+                    "dbgreen":"#00cc66",
+                    "bdblue":"414bb2",
+                    "--border-color": "var(--b3)",
+                    "--rounded-box": "0.2rem",
+                    // "--rounded-btn": "20px 0 20px 0",
+                    "--rounded-btn": "mask mask-hexagon",
+                    // "--rounded-btn": "1px",
+                    "--rounded-badge": "0.2rem",
+                    "--animation-btn": "0.25s",
+                    "--animation-input": ".2s",
+                    // "--btn-text-case": "uppercase",
+                    "--btn-focus-scale": "0.95",
+                    "--navbar-padding": ".5rem",
+                    "--border-btn": "1px",
+                    "--tab-border": "1px",
+                    "--tab-radius": "0.2rem",
+
+                    "*": {
+                        "border-color": "var(--border-color) !important",
+                        "--tw-border-opacity": "1 !important",
+                        "--tw-text-opacity": "1 !important",
+                        "--tw-shadow": "0 0 0 1px var(--border-color) !important",
+                    },
+                },
+            },
+        ],
+    },
+
 }

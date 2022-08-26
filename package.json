@@ -19,6 +19,7 @@
     "astro": "^1.0.9"
   },
   "dependencies": {
-    "daisyui": "^2.24.0"
+    "daisyui": "^2.24.0",
+    "flamethrower-router": "^0.0.0-meme.9"
   }
 }
