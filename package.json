@@ -13,8 +13,12 @@
     "@astrojs/alpinejs": "^0.1.0",
     "@astrojs/tailwind": "^1.0.0",
     "@astrojs/vercel": "^1.0.1",
+    "@tailwindcss/typography": "^0.5.4",
     "@types/alpinejs": "^3.7.0",
     "alpinejs": "^3.10.3",
     "astro": "^1.0.9"
+  },
+  "dependencies": {
+    "daisyui": "^2.24.0"
   }
 }
