@@ -16,16 +16,68 @@ const { title } = Astro.props as Props;
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet" /> -->
+
 		<link
-			href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani&family=Silkscreen&display=swap"
 			rel="stylesheet"
 		/>
 
 		<style is:global>
+			body, .prose body, .prose {
+				font-family: "Rajdhani", sans-serif;
+				font-size: 1.20rem;
+			}
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				font-family: "Press Start 2P";
+				text-shadow: 0 0 8px #14ff14;
+				/* font-size: x-small; */
+			}
+
+			.prose h1, h1 {
+				font-size: 1.75rem;
+				margin-top: 2rem;
+			}
+
+			.prose h2, h2 {
+				font-size: 1.5rem;
+			}
+			.prose h3, h3 {
+				font-size: 1.4rem;
+			}
+			.prose h4, h4 {
+				font-size: 1.3rem;
+			}
+			.prose h5, h5 {
+				font-size: 1.2rem;
+			}
+			.prose h6, h6 {
+				font-size: 1.1rem;
+			}
+
+			.alert,
+			.stats {
+				font-family: "Silkscreen", monospace;
+			}
+
+			pre,
+			code, .prose pre, .prose code {
+				font-family: "Press Start 2P", monospace;
+				font-size: 0.75rem;
+				/* font-family: "OCR A", monospace; */
+				/* font-family: "Space Mono", monospace; */
+			}
+
 			p {
 				text-align: justify;
 			}
@@ -34,14 +86,14 @@ const { title } = Astro.props as Props;
 				height: 100vh;
 			}
 
-			body {
-				font-family: "Rajdhani", sans-serif;
-				font-size: "3rem";
-				
-			}
-
 			.gradient-background {
-				background: linear-gradient(69deg, #000044, #000011, #001100, #004400);
+				background: linear-gradient(
+					69deg,
+					#000044,
+					#000011,
+					#001100,
+					#004400
+				);
 				background-size: 180% 180%;
 				animation: gradient-animation 10s ease infinite;
 			}
@@ -58,16 +110,6 @@ const { title } = Astro.props as Props;
 				}
 			}
 
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6 {
-				color: #ff0000;
-				font-family: "OCR A", sans-serif;
-				text-shadow: 0 0 10px #14ff14;
-			}
 			.btn {
 				text-decoration: none;
 			}
@@ -91,14 +133,6 @@ const { title } = Astro.props as Props;
 			.prose h2.card-title {
 				margin-top: 0;
 				margin-bottom: 0;
-			}
-
-			.alert {
-				font-family: "Silkscreen", monospace;
-			}
-
-			.stats {
-				font-family: "Silkscreen", monospace;
 			}
 
 			#announc3ment {
@@ -149,42 +183,11 @@ const { title } = Astro.props as Props;
 		<title>{title}</title>
 	</head>
 	<body class="prose">
+
+
 		<slot />
-		<style>
-			:root {
-				--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-				--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
-				--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
 
-				--color-text: hsl(12, 5%, 4%);
-				--color-bg: hsl(10, 21%, 95%);
-				--color-border: hsl(17, 24%, 90%);
-			}
 
-			html {
-				font-family: system-ui, sans-serif;
-				font-size: var(--font-size-base);
-				color: var(--color-text);
-				background-color: var(--color-bg);
-			}
 
-			body {
-				margin: 0;
-			}
-
-			:global(h1) {
-				font-size: var(--font-size-xl);
-			}
-
-			:global(h2) {
-				font-size: var(--font-size-lg);
-			}
-
-			:global(code) {
-				font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-					DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
-					monospace;
-			}
-		</style>
 	</body>
 </html>

@@ -22,6 +22,12 @@ These are the elements outlined in John Gruber’s original design document. All
 
 ### H3
 
+#### H4
+
+##### H5
+
+###### H6
+
 ### Bold
 
 This is some **bold text**
