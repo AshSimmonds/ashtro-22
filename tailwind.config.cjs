@@ -31,27 +31,42 @@ module.exports = {
 
 				ashdark: {
 
-					primary: "#026087",
-					"primary-focus": "#33ff33",
-					"primary-content": "#1b1c22",
-					secondary: "#00cc66",
-					"secondary-focus": "#b030fe",
-					"secondary-content": "#1b1c22",
-					accent: "#d90368",
-					"accent-focus": "#ff9326",
-					"accent-content": "#1b1c22",
-					neutral: "#eeeeee",
-					"neutral-focus": "#c0d3ff",
-					"neutral-content": "#1b1c22",
-					"base-100": "#021001",
-					"base-200": "#042002",
-					"base-300": "#073003",
-					"base-content": "#4ae9ff",
-					info: "#414bb2",
-					success: "#9510ac",
-					warning: "#db663a",
-					error: "#f1c40f",
+					'primary': '#44b022',
+					'primary-focus': '#00ff00',
+					'primary-content': '#ffffff',
 
+					'secondary': '#721eaf',
+					'secondary-focus': '#ae00ff',
+					'secondary-content': '#ffffff',
+
+					'accent': '#ae9822',
+					'accent-focus': '#ffdd00',
+					'accent-content': '#ffffff',
+
+					'neutral': '#102e88',
+					'neutral-focus': '#0038c7',
+					'neutral-content': '#ffffff',
+
+					'base-100': '#021001',
+					'base-200': '#042002',
+					'base-300': '#073003',
+					'base-content': '#4ae9ff',
+
+					'info': '#384fff',
+					'success': '#87cf3a',
+					'warning': '#ffb347',
+					'error': '#ff1a1a',
+
+					'--rounded-box': '0.25rem',
+					'--rounded-btn': '0.1rem',
+					'--rounded-badge': '0.1rem',
+
+					'--animation-btn': '0.25s',
+					'--animation-input': '0.2s',
+
+					// '--btn-text-case': 'uppercase',
+					'--navbar-padding': '.5rem',
+					'--border-btn': '1px',
 				},
 			},
 		],
