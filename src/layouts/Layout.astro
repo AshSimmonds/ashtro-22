@@ -37,16 +37,40 @@ const { title } = Astro.props as Props;
 			body {
 				font-family: "Rajdhani", sans-serif;
 				font-size: "3rem";
+				
 			}
 
-			h1, h2, h3, h4, h5, h6: {
-				font-family: "Baloo2";
+			.gradient-background {
+				background: linear-gradient(69deg, #000044, #000011, #001100, #004400);
+				background-size: 180% 180%;
+				animation: gradient-animation 10s ease infinite;
 			}
 
+			@keyframes gradient-animation {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				color: #ff0000;
+				font-family: "OCR A", sans-serif;
+				text-shadow: 0 0 10px #14ff14;
+			}
 			.btn {
 				text-decoration: none;
 			}
-
 
 			.prose {
 				max-width: 75ch;
@@ -70,35 +94,12 @@ const { title } = Astro.props as Props;
 			}
 
 			.alert {
-				font-family: 'Silkscreen', monospace;
+				font-family: "Silkscreen", monospace;
 			}
 
 			.stats {
-				font-family: 'Silkscreen', monospace;
+				font-family: "Silkscreen", monospace;
 			}
-
-			/* #someselector {
-  all: initial;
-}
-
-#someselector * {
-  all: unset
-} */
-
-			:root * .input {
-    			/* border-color: revert !important; */
-				/* border: solid 1px !important; */
-				/* border-color: initial !important; */
-			}
-			
-			:root * .input {
-				/* border: 1px solid !important; */
-			}
-
-			secondary {
-				/* border-color: #ff0000 !important; */
-			}
-			
 
 			#announc3ment {
 				--aug-clip-tl1: initial;
