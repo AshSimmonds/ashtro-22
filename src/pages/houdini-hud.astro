@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="houdini-HUD using Augmented-UI by @propjockey">
+	<main>
+		<h1>houdini-hud using Augmented-UI by @propjockey</h1>
+
+		<a href="https://github.com/propjockey/houdini-hud">github repo</a>
+
+		<div class="hh01" data-houdini-hud="both">
+			<pre style="background: #5c42e6; color: #b2a5fd">			
+--hud-tl1: clip;
+--hud-tl1-size: 3rem;
+
+--hud-br1: clip;
+--hud-br1-size: 3rem;
+
+--hud-inlay-bg: #b2a5fd;
+
+padding: 2rem;
+margin: auto;
+max-width: 66%;
+			</pre>
+		</div>
+
+	</main>
+</Layout>
+
+<script src="https://unpkg.com/houdini-hud@0.0.1/index.js"></script>
+
+<style>
+	.hh01 {
+		--hud-tl1: clip;
+		--hud-tl1-size: 3rem;
+
+		--hud-br1: clip;
+		--hud-br1-size: 3rem;
+
+		--hud-inlay-bg: #b2a5fd;
+		/* --hud-inlay-opacity: 0.33; */
+
+		padding: 2rem;
+		margin: auto;
+		max-width: 66%;
+	}
+
+	.demo-area .demo {
+		--hud-inlay-bg: var(--theme-4);
+		--hud-inlay-opacity: 0.33;
+		--hud-bl-inset: 0.75rem;
+		--hud-tr1: clip;
+		--hud-tr1-size: 1rem;
+		--hud-l2: clip;
+		--hud-l1: clip;
+		--hud-bl2: round;
+		--hud-bl1: clip;
+		--hud-l2-size: 1rem;
+		--hud-l2-inset-y: 25%;
+		--hud-l1-size: 0.25rem;
+		--hud-bl2-size: 1rem;
+		--hud-bl1-size: 0.5rem;
+		--hud-b1: clip;
+		--hud-b1-size: 1rem;
+		--hud-b1-inset-x: 33%;
+		--hud-b2: clip;
+		--hud-b2-size: 0.25rem;
+		--hud-br1: round;
+		--hud-br1-size: 1rem;
+		width: 100%;
+		height: max(50%, 150px);
+		--hud-inlay-all: 7px;
+		--hud-border-all: 2px;
+		--hud-border-opacity: 0.75;
+		--hud-border-bg: linear-gradient(
+			to right,
+			var(--theme-1),
+			var(--theme-2) 33% 66%,
+			var(--theme-1)
+		);
+	}
+</style>
