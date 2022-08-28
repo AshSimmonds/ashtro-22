@@ -1,10 +1,11 @@
 import type { FunctionalComponent } from 'preact'
 // import { h } from 'preact'
 
+const readOnlyApiKey = 'keyJLhVXNN3146CVO'
 
 const data = await fetch(
     "https://api.airtable.com/v0/app0yd2hvlSxsieUo/submissions",
-    { headers: { Authorization: `Bearer ${import.meta.env.AIRTABLE_API_KEY}` } }
+    { headers: { Authorization: `Bearer ${readOnlyApiKey}` } }
 ).then((response) =>
     response.json()
 );
