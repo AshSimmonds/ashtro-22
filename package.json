@@ -11,12 +11,14 @@
   },
   "devDependencies": {
     "@astrojs/alpinejs": "^0.1.0",
+    "@astrojs/preact": "^1.0.2",
     "@astrojs/tailwind": "^1.0.0",
     "@astrojs/vercel": "^1.0.1",
     "@tailwindcss/typography": "^0.5.4",
     "@types/alpinejs": "^3.7.0",
     "alpinejs": "^3.10.3",
-    "astro": "^1.0.9"
+    "astro": "^1.0.9",
+    "preact": "^10.10.6"
   },
   "dependencies": {
     "@example/basics": "file:",
