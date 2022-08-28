@@ -15,13 +15,18 @@ console.log(data.records);
 
 
 const listOfSubmissions = data.records.map((record: {
-    fields: any; id: string; 
+    fields: any; id: string;
 }) => {
     return (
         <>
-            <div>
-                {record.id} | {JSON.stringify(record.fields.Address)}
-            </div>  
+            <div x-data="{ open: false }">
+                <button x-on:click="open = ! open">
+                    {record.id} | {JSON.stringify(record.fields.Address)}
+                </button>
+                <div x-show="open">
+asdf
+                </div>
+            </div>
         </>
     );
 });
