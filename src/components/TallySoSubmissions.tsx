@@ -19,13 +19,16 @@ const listOfSubmissions = data.records.map((record: {
 }) => {
     return (
         <>
-            <div x-data="{ open: false }">
-                <button x-on:click="open = ! open">
-                    {record.id} | {JSON.stringify(record.fields.Address)}
-                </button>
-                <div x-show="open">
-asdf
-                </div>
+            <div>
+                <label for={'my-modal-' + record.id} class="btn btn-sm btn-outline mt-1">{record.id} | {JSON.stringify(record.fields.Address)}</label>
+
+                <input type="checkbox" id={'my-modal-' + record.id} className="modal-toggle" />
+                <label for={'my-modal-' + record.id} class="modal cursor-pointer">
+                    <label className="modal-box relative" for="">
+                        <p className="text-xs">{JSON.stringify(record)}</p>
+                    </label>
+                </label>
+
             </div>
         </>
     );
