@@ -1,61 +1,103 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 
-import MediaQuery from "../components/MediaQuery.astro"
+import MediaQuery from "../components/MediaQuery.astro";
 
-import LoremIpsum from "../components/lorem-ipsum.astro"
+import LoremIpsum from "../components/lorem-ipsum.astro";
 ---
 
-<Layout title="media   query   eye   for   the   straight   bi">
+<Layout title="media query eye for the straight bi">
     <main>
-        <h1>media query eye for the straight bi</h1>
-
         <MediaQuery />
 
-        If not blatantly obvious, the <span class="tooltip tooltip-bottom badge text-xs bg-primary" data-tip="this is a badge">badges</span> represent standard <code>media query</code> demarcations:
+        <h1>media query eye for the straight bi | using tailwindcss daisyui</h1>
+
+        If not blatantly obvious, the <span
+            class="tooltip tooltip-bottom badge text-xs bg-primary"
+            data-tip="this is a badge">badges</span
+        > represent standard <code>media query</code> demarcations:
 
         <ul>
-            <li><span class="tooltip tooltip-bottom badge bg-primary text-xs" data-tip="mobile">PH</span>: <code>mobile</code></li>
-            <li><span class="tooltip tooltip-bottom badge sm:bg-primary text-xs" data-tip="640px">SM</span>: <code>640 px</code></li>
-            <li><span class="tooltip tooltip-bottom badge md:bg-primary text-xs" data-tip="768px">MD</span>: <code>768 px</code></li>
-            <li><span class="tooltip tooltip-bottom badge lg:bg-primary text-xs" data-tip="1024px">LG</span>: <code>1024 px</code></li>
-            <li><span class="tooltip tooltip-bottom badge xl:bg-primary text-xs" data-tip="1280px">XL</span>: <code>1280 px</code></li>
-            <li><span class="tooltip tooltip-bottom badge 2xl:bg-primary text-xs" data-tip="1536px">2XL</span>: <code>1536 px</code></li>
+            <li>
+                <span
+                    class="tooltip tooltip-bottom badge bg-primary text-xs"
+                    data-tip="mobile">PH</span
+                >: <code>mobile</code>
+            </li>
+            <li>
+                <span
+                    class="tooltip tooltip-bottom badge sm:bg-primary text-xs"
+                    data-tip="640px">SM</span
+                >: <code>640 px</code>
+            </li>
+            <li>
+                <span
+                    class="tooltip tooltip-bottom badge md:bg-primary text-xs"
+                    data-tip="768px">MD</span
+                >: <code>768 px</code>
+            </li>
+            <li>
+                <span
+                    class="tooltip tooltip-bottom badge lg:bg-primary text-xs"
+                    data-tip="1024px">LG</span
+                >: <code>1024 px</code>
+            </li>
+            <li>
+                <span
+                    class="tooltip tooltip-bottom badge xl:bg-primary text-xs"
+                    data-tip="1280px">XL</span
+                >: <code>1280 px</code>
+            </li>
+            <li>
+                <span
+                    class="tooltip tooltip-bottom badge 2xl:bg-primary text-xs"
+                    data-tip="1536px">2XL</span
+                >: <code>1536 px</code>
+            </li>
         </ul>
 
-        <h2>yes it's base 1 don't <a href="https://twitter.com/Magic8BaIl">@</a> me</h2>
+        <h2>
+            yes it's base 1 don't <a href="https://twitter.com/Magic8BaIl">@</a>
+            me
+        </h2>
 
-        Here's a bunch of stuff to test on screen with various media query malarkey in mind.
+        Here's a bunch of stuff to test on screen with various media query
+        malarkey in mind.
 
         <hr />
-
 
         <h3>class="thisGuyH4X0Rz SYS64738"</h3>
         <MediaQuery />
-        <pre>
-            <code>
+        <pre>  <code>
 <LoremIpsum />
-            </code>
-        </pre>
+  </code>
+  </pre>
         <hr />
 
-
-
         <h3>class="none" (like yo mama)</h3>
-        <p class="none">
-            This should show up in whatever standard font and size etc you have chosen for your system, except for colour which has been set to <span class="badge" style="background-color: #aaaaaa;">#aaaaaa</span> so it can work on any screen except for wankers using #aaaaaa as a background. It's funny to go #aaaaaa but c'mon dude, get help.
-        </p>
         <MediaQuery />
+        <p class="none">
+            This should show up in whatever standard (likely not monospace or
+            sans-serif) font and size etc you have chosen for your system,
+            except for colour which has been set to <span
+                class="badge"
+                style="background-color: #aaaaaa;">#aaaaaa</span
+            > so it can work on any screen except for wankers using #aaaaaa as a
+            background. It's funny to go #aaaaaa but c'mon dude, get help.
+        </p>
         <div class="none">
             <LoremIpsum />
         </div>
 
         <hr />
 
-
-
-
         <h3>class="normieCode"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <code
+                >normal</code
+            > size
+        </p>
 
         <div class="normieCode">
             <LoremIpsum />
@@ -63,19 +105,94 @@ import LoremIpsum from "../components/lorem-ipsum.astro"
 
         <hr />
 
-
         <h3>class="normieCode text-xs"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <span
+                class="text-xs">extra small</span
+            > size
+        </p>
+        <div class="normieCode text-xs">
             <LoremIpsum />
+        </div>
+
+        <hr />
+
+        <h3>class="normieCode text-sm"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <span
+                class="text-sm">small</span
+            > size
+        </p>
+        <div class="normieCode text-sm">
+            <LoremIpsum />
+        </div>
+
+        
+        <hr />
+
+        <h3>class="normieCode text-md"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <span
+                class="text-md">medium</span
+            > size
+        </p>
+        <div class="normieCode text-md">
+            <LoremIpsum />
+        </div>
 
 
+        <hr />
+
+        <h3>class="normieCode text-lg"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <span
+                class="text-lg">large</span
+            > size
+        </p>
+        <div class="normieCode text-lg">
+            <LoremIpsum />
+        </div>
+
+
+        <hr />
+
+        <h3>class="normieCode text-xl"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <span
+                class="text-xl">extra large</span
+            > size
+        </p>
+        <div class="normieCode text-xl">
+            <LoremIpsum />
+        </div>
+
+
+        <hr />
+
+        <h3>class="normieCode text-2xl"</h3>
+        <MediaQuery />
+        <p>
+            Font below should be your own system monospace, at <span
+                class="text-2xl">twicer extrarer larger</span
+            > size
+        </p>
+        <div class="normieCode text-2xl">
+            <LoremIpsum />
+        </div>
+
+
+
+        <hr />
         <div>
             <code> asdf</code>
         </div>
 
         <hr />
-
-
-        <MediaQuery />
 
         <MediaQuery />
 
