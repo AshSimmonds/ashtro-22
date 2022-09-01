@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const jsonResults = await fetch("https://pokeapi.co/api/v2/pokemon/ditto").then((res) => res.json());
+
+console.log (jsonResults);
+
+---
+
+<Layout title="asdf">
+	<main>
+
+        <h1>asdf</h1>
+
+        <h2>rawResults</h2>
+
+        <pre>{JSON.stringify(jsonResults, null, 2)}</pre>
+
+
+    </main>
+</Layout>
