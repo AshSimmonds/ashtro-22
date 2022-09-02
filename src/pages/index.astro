@@ -1,114 +1,119 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Layout from "../layouts/Layout.astro"
+import Card from "../components/Card.astro"
 ---
 
 <Layout title="ashtro">
-	<main>
-		<h1 class="text-gradient">ashtro</h1>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="/typography"
-				title="Typography"
-				body="See how pretty much any component looks on this site."
-			/>
-
-			<Card
-				href="/alpine"
-				title="Alpine.dev"
-				body="Integration for doing cool data and stuff to the body."
-			/>
-
-			<Card
-				href="/houdini-hud"
-				title="Houdini-HUD"
-				body="augmented-ui implemented in Houdini with hopes of future enhancements to the houdini paint api"
-			/>
-
-			<Card
-				href="/tally-so"
-				title="Tally.so form"
-				body="basic form built with tally.so, served to airtable, then acquired via API call to fiddle with"
-			/>
-
-			<Card
-				href="/cobe"
-				title="COBE | Cosmic Background Explorer"
-				body="half-baked globe thing, nowhere near done yet, just pushing it up to shift context"
-			/>
-
-			<Card
-				href="/media-query"
-				title="media query shenanigens"
-				body="query eye for the straight bi | using tailwindcss daisyui"
-			/>
+    <main>
+        <h1 class="text-gradient">ashtro</h1>
+        <ul role="list" class="link-card-grid">
+            <Card
+                href="/typography"
+                title="Typography"
+                body="See how pretty much any component looks on this site."
+            />
 
             <Card
-            href="/tabs"
-            title="Tabs not Pepsi"
-            body="standard Tailwind/DaisyUI tabs don't work, this kinda does"
-        />
+                href="/alpine"
+                title="Alpine.dev"
+                body="Integration for doing cool data and stuff to the body."
+            />
 
-		</ul>
-	</main>
+            <Card
+                href="/houdini-hud"
+                title="Houdini-HUD"
+                body="augmented-ui implemented in Houdini with hopes of future enhancements to the houdini paint api"
+            />
+
+            <Card
+                href="/tally-so"
+                title="Tally.so form"
+                body="basic form built with tally.so, served to airtable, then acquired via API call to fiddle with"
+            />
+
+            <Card
+                href="/cobe"
+                title="COBE | Cosmic Background Explorer"
+                body="half-baked globe thing, nowhere near done yet, just pushing it up to shift context"
+            />
+
+            <Card
+                href="/media-query"
+                title="media query shenanigens"
+                body="query eye for the straight bi | using tailwindcss daisyui"
+            />
+
+            <Card
+                href="/tabs"
+                title="Tabs not Pepsi"
+                body="standard Tailwind/DaisyUI tabs don't work, this kinda does"
+            />
+
+            <Card
+                href="/xstate-counter"
+                title="x-state counter"
+                body="simple X-State machine in Svelte and Astro"
+            />
+        </ul>
+    </main>
 </Layout>
 
 <style>
-	:root {
-		--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
-	}
+    :root {
+        --astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
+    }
 
-	h1 {
-		margin: 2rem 0;
-	}
+    h1 {
+        margin: 2rem 0;
+    }
 
-	main {
-		margin: auto;
-		padding: 1em;
-		max-width: 60ch;
-	}
+    main {
+        margin: auto;
+        padding: 1em;
+        max-width: 60ch;
+    }
 
-	.text-gradient {
-		font-weight: 900;
-		background-image: var(--astro-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 100% 200%;
-		background-position-y: 100%;
-		border-radius: 0.4rem;
-		animation: pulse 4s ease-in-out infinite;
-	}
+    .text-gradient {
+        font-weight: 900;
+        background-image: var(--astro-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 100% 200%;
+        background-position-y: 100%;
+        border-radius: 0.4rem;
+        animation: pulse 4s ease-in-out infinite;
+    }
 
-	@keyframes pulse {
-		0%,
-		100% {
-			background-position-y: 0%;
-		}
-		50% {
-			background-position-y: 80%;
-		}
-	}
+    @keyframes pulse {
+        0%,
+        100% {
+            background-position-y: 0%;
+        }
+        50% {
+            background-position-y: 80%;
+        }
+    }
 
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		background: #4f39fa;
-		padding: 1rem;
-		border-radius: 0.4rem;
-		color: var(--color-bg);
-	}
+    .instructions {
+        line-height: 1.6;
+        margin: 1rem 0;
+        background: #4f39fa;
+        padding: 1rem;
+        border-radius: 0.4rem;
+        color: var(--color-bg);
+    }
 
-	.instructions code {
-		font-size: 0.875em;
-		border: 0.1em solid var(--color-border);
-		border-radius: 4px;
-		padding: 0.15em 0.25em;
-	}
+    .instructions code {
+        font-size: 0.875em;
+        border: 0.1em solid var(--color-border);
+        border-radius: 4px;
+        padding: 0.15em 0.25em;
+    }
 
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+    .link-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+        gap: 1rem;
+        padding: 0;
+    }
 </style>
