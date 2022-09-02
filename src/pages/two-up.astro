@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+import { createMachine } from "xstate"
+
+const twoUpMachine = createMachine({
+    id: "app",
+    predictableActionArguments: true,
+    initial: "idle",
+    context: {
+        count: 0,
+    },
+    states: {
+        idle: {
+            on: {
+                INCREMENT: {
+                    actions: (ctx) => {
+                        ctx.count++
+                    },
+                },
+            },
+        },
+    },
+})
+
+console.log(twoUpMachine.initialState)
+---
+
+<Layout title="two up">
+    <main></main>
+</Layout>
