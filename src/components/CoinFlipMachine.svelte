@@ -1,5 +1,5 @@
 <script>
-    import { getInstance } from "../machines/coinFlipMachine"
+    import { getInstance } from "../machines/coinFlip"
 
     const service = getInstance()
     let state
