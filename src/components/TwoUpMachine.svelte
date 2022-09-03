@@ -27,6 +27,4 @@
 <hr />
 
 <h3>debug state</h3>
-<code >
-    {JSON.stringify(state)}
-</code>
+<pre>{JSON.stringify(state, null, '    ')}</pre>
