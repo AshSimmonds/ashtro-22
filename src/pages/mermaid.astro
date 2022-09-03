@@ -111,6 +111,22 @@ gitGraph
       merge develop
       commit
       commit`
+
+const flowchartFunCode = `
+flowchart
+	N14e["This app works by typing"]
+	N14f["Indenting creates a link to the current line"]
+	N150["before a colon creates a label"]
+	N151["Create a link directly using the exact label text"]
+	custom_ID["or"]
+	N154["by adding an [ID] and referencing that"]
+	N14e --> N14f
+	N14e -- "any text" --> N150
+	N14e --> N151
+	N151 -- "like this" --> N14e
+	N151 --> custom_ID
+	custom_ID --> N154
+	N154 -- "like this" --> custom_ID`
 ---
 
 <Layout title="mermaid">
@@ -119,8 +135,9 @@ gitGraph
     <h2>boilerplate Bob John Alice boring conversation</h2>
 
     <div x-data="{ sequenceDiagramCodeShow: false }">
-        <button x-on:click="sequenceDiagramCodeShow = ! sequenceDiagramCodeShow" class="btn"
-            >code</button
+        <button
+            x-on:click="sequenceDiagramCodeShow = ! sequenceDiagramCodeShow"
+            class="btn">code</button
         >
         <pre x-show="sequenceDiagramCodeShow">{sequenceDiagramCode}</pre>
     </div>
@@ -144,8 +161,9 @@ gitGraph
 
     <h2>class diagram</h2>
     <div x-data="{ classDiagramCodeShow: false }">
-        <button x-on:click="classDiagramCodeShow = ! classDiagramCodeShow" class="btn"
-            >code</button
+        <button
+            x-on:click="classDiagramCodeShow = ! classDiagramCodeShow"
+            class="btn">code</button
         >
         <pre x-show="classDiagramCodeShow">{classDiagramCode}</pre>
     </div>
@@ -159,8 +177,9 @@ gitGraph
 
     <h2>state diagram</h2>
     <div x-data="{ stateDiagramCodeShow: false }">
-        <button x-on:click="stateDiagramCodeShow = ! stateDiagramCodeShow" class="btn"
-            >code</button
+        <button
+            x-on:click="stateDiagramCodeShow = ! stateDiagramCodeShow"
+            class="btn">code</button
         >
         <pre x-show="stateDiagramCodeShow">{stateDiagramCode}</pre>
     </div>
@@ -171,8 +190,9 @@ gitGraph
 
     <h2>gantt chart</h2>
     <div x-data="{ ganttChartCodeShow: false }">
-        <button x-on:click="ganttChartCodeShow = ! ganttChartCodeShow" class="btn"
-            >code</button
+        <button
+            x-on:click="ganttChartCodeShow = ! ganttChartCodeShow"
+            class="btn">code</button
         >
         <pre x-show="ganttChartCodeShow">{ganttChartCode}</pre>
     </div>
@@ -213,8 +233,9 @@ gitGraph
 
     <h2>user journey</h2>
     <div x-data="{ userJourneyCodeShow: false }">
-        <button x-on:click="userJourneyCodeShow = ! userJourneyCodeShow" class="btn"
-            >code</button
+        <button
+            x-on:click="userJourneyCodeShow = ! userJourneyCodeShow"
+            class="btn">code</button
         >
         <pre x-show="userJourneyCodeShow">{userJourneyCode}</pre>
     </div>
@@ -237,4 +258,20 @@ gitGraph
     <div class="mermaid">
         <Diagram config={config} code={gitGraphCode} />
     </div>
+
+
+
+    <h2><a href="https://flowchart.fun">flowchart.fun</a> graph</h2>
+    <div x-data="{ flowchartFunCodeShow: false }">
+        <button x-on:click="flowchartFunCodeShow = ! flowchartFunCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="flowchartFunCodeShow">{flowchartFunCode}</pre>
+    </div>
+
+    <div class="mermaid">
+        <Diagram config={config} code={flowchartFunCode} />
+    </div>
+
+    
 </Layout>
