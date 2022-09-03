@@ -117,30 +117,38 @@ gitGraph
     <h1>mermaid shenanigens</h1>
 
     <h2>boilerplate Bob John Alice boring conversation</h2>
-    <code>
-        <pre>            {sequenceDiagramCode}
-        </pre>
-    </code>
+
+    <div x-data="{ sequenceDiagramCodeShow: false }">
+        <button x-on:click="sequenceDiagramCodeShow = ! sequenceDiagramCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="sequenceDiagramCodeShow">{sequenceDiagramCode}</pre>
+    </div>
 
     <div class="mermaid">
         <Diagram config={config} code={sequenceDiagramCode} />
     </div>
 
     <h2>flowchart</h2>
-    <code>
-        <pre>            {flowchartCode}
-        </pre>
-    </code>
+
+    <div x-data="{ flowchartCodeShow: false }">
+        <button x-on:click="flowchartCodeShow = ! flowchartCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="flowchartCodeShow">{flowchartCode}</pre>
+    </div>
 
     <div class="mermaid">
         <Diagram config={config} code={flowchartCode} />
     </div>
 
     <h2>class diagram</h2>
-    <code>
-        <pre>            {classDiagramCode}
-        </pre>
-    </code>
+    <div x-data="{ classDiagramCodeShow: false }">
+        <button x-on:click="classDiagramCodeShow = ! classDiagramCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="classDiagramCodeShow">{classDiagramCode}</pre>
+    </div>
 
     <p class="alert-error">
         TODO: figure out why <code>classDiagramCode</code> is munted
@@ -150,20 +158,24 @@ gitGraph
     </div>
 
     <h2>state diagram</h2>
-    <code>
-        <pre>            {stateDiagramCode}
-        </pre>
-    </code>
+    <div x-data="{ stateDiagramCodeShow: false }">
+        <button x-on:click="stateDiagramCodeShow = ! stateDiagramCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="stateDiagramCodeShow">{stateDiagramCode}</pre>
+    </div>
 
     <div class="mermaid">
         <Diagram config={config} code={stateDiagramCode} />
     </div>
 
     <h2>gantt chart</h2>
-    <code>
-        <pre>            {ganttChartCode}
-        </pre>
-    </code>
+    <div x-data="{ ganttChartCodeShow: false }">
+        <button x-on:click="ganttChartCodeShow = ! ganttChartCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="ganttChartCodeShow">{ganttChartCode}</pre>
+    </div>
 
     <p class="alert-error">
         TODO: figure out why <code>ganttChartCode</code> is munted
@@ -172,21 +184,25 @@ gitGraph
         <Diagram config={config} code={ganttChartCode} />
     </div>
 
-    <h2>gantt chart</h2>
-    <code>
-        <pre>            {pieChartCode}
-        </pre>
-    </code>
+    <h2>pie chart</h2>
+    <div x-data="{ pieChartCodeShow: false }">
+        <button x-on:click="pieChartCodeShow = ! pieChartCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="pieChartCodeShow">{pieChartCode}</pre>
+    </div>
 
     <div class="mermaid">
         <Diagram config={config} code={pieChartCode} />
     </div>
 
     <h2>entity relationship diagram</h2>
-    <code>
-        <pre>            {erDiagramCode}
-        </pre>
-    </code>
+    <div x-data="{ erDiagramCodeShow: false }">
+        <button x-on:click="erDiagramCodeShow = ! erDiagramCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="erDiagramCodeShow">{erDiagramCode}</pre>
+    </div>
 
     <p class="alert-error">
         TODO: figure out why <code>erDiagramCode</code> is munted
@@ -196,10 +212,12 @@ gitGraph
     </div>
 
     <h2>user journey</h2>
-    <code>
-        <pre>            {userJourneyCode}
-        </pre>
-    </code>
+    <div x-data="{ userJourneyCodeShow: false }">
+        <button x-on:click="userJourneyCodeShow = ! userJourneyCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="userJourneyCodeShow">{userJourneyCode}</pre>
+    </div>
 
     <p class="alert-error">
         TODO: figure out why <code>userJourneyCode</code> is munted
@@ -209,10 +227,12 @@ gitGraph
     </div>
 
     <h2>git graph</h2>
-    <code>
-        <pre>            {gitGraphCode}
-        </pre>
-    </code>
+    <div x-data="{ gitGraphCodeShow: false }">
+        <button x-on:click="gitGraphCodeShow = ! gitGraphCodeShow" class="btn"
+            >code</button
+        >
+        <pre x-show="gitGraphCodeShow">{gitGraphCode}</pre>
+    </div>
 
     <div class="mermaid">
         <Diagram config={config} code={gitGraphCode} />
