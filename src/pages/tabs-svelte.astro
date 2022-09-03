@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+import TabsSvelte from "../components/TabsSvelte.svelte"
+---
+
+<Layout title="tabs | svelte">
+    <main>
+        <h1>tabs | astro + svelte</h1>
+
+        Let's give it a shot eh....
+
+        <hr />
+
+        <div class="w-80 mx-auto">
+            <TabsSvelte client:load />
+        </div>
+    </main>
+</Layout>
