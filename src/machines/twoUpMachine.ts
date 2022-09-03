@@ -5,6 +5,7 @@ const twoUpMachine =
     createMachine({
         context: {
             tosses: 0,
+            odds: 0,
             heads: 0,
             tails: 0,
         },
@@ -23,9 +24,10 @@ const twoUpMachine =
                 on: {
                     Toss: [
                         {
-                            actions: "incrementTosses",
-                            description: "Stalemate, toss again",
+                            actions: ["incrementOdds", "incrementTosses"],
+                            description: "Stalemate",
                             cond: "Odds",
+                            target: "AwaitingToss",
                         },
                         {
                             actions: ["incrementWins", "incrementTosses"],
@@ -57,6 +59,9 @@ const twoUpMachine =
         actions: {
             incrementTosses: (context, event) => {
                 context.tosses++;
+            },
+            incrementOdds: (context, event) => {
+                context.odds++;
             },
             incrementWins: (context, event) => {
                 context.heads++;
