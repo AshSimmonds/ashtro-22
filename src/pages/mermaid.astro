@@ -1,0 +1,220 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+// npm i @julian_cataldo/astro-diagram headless-mermaid
+import Diagram, { Config } from "@julian_cataldo/astro-diagram/Diagram.astro"
+
+const config = {
+    theme: "dark",
+} as Config
+
+const sequenceDiagramCode = `
+sequenceDiagram
+Alice ->> Bob: Hello Bob, how are you?
+Bob-->>John: How about you John?
+Bob--x Alice: I am good thanks!
+Bob-x John: I am good thanks!
+Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+
+Bob-->Alice: Checking with John...
+Alice->John: Yes... John, how are you?`
+
+const flowchartCode = `
+graph TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]`
+
+const classDiagramCode = `
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra{
+      +bool is_wild
+      +run()
+    }
+            `
+
+const stateDiagramCode = `
+stateDiagram-v2
+    [*] --> Still
+    Still --> [*]
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]`
+
+const ganttChartCode = `
+gantt
+    title A Gantt Diagram
+    dateFormat  YYYY-MM-DD
+    section Section
+    A task           :a1, 2014-01-01, 30d
+    Another task     :after a1  , 20d
+    section Another
+    Task in sec      :2014-01-12  , 12d
+    another task      : 24d`
+
+const pieChartCode = `
+pie title Pets adopted by volunteers
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15`
+
+const erDiagramCode = `
+erDiagram
+          CUSTOMER }|..|{ DELIVERY-ADDRESS : has
+          CUSTOMER ||--o{ ORDER : places
+          CUSTOMER ||--o{ INVOICE : "liable for"
+          DELIVERY-ADDRESS ||--o{ ORDER : receives
+          INVOICE ||--|{ ORDER : covers
+          ORDER ||--|{ ORDER-ITEM : includes
+          PRODUCT-CATEGORY ||--|{ PRODUCT : contains
+          PRODUCT ||--o{ ORDER-ITEM : "ordered in"`
+
+const userJourneyCode = `
+journey
+    title My working day
+    section Go to work
+      Make tea: 5: Me
+      Go upstairs: 3: Me
+      Do work: 1: Me, Cat
+    section Go home
+      Go downstairs: 5: Me
+      Sit down: 3: Me`
+
+const gitGraphCode = `
+gitGraph
+      commit
+      commit
+      branch develop
+      checkout develop
+      commit
+      commit
+      checkout main
+      merge develop
+      commit
+      commit`
+---
+
+<Layout title="mermaid">
+    <h1>mermaid shenanigens</h1>
+
+    <h2>boilerplate Bob John Alice boring conversation</h2>
+    <code>
+        <pre>            {sequenceDiagramCode}
+        </pre>
+    </code>
+
+    <div class="mermaid">
+        <Diagram config={config} code={sequenceDiagramCode} />
+    </div>
+
+    <h2>flowchart</h2>
+    <code>
+        <pre>            {flowchartCode}
+        </pre>
+    </code>
+
+    <div class="mermaid">
+        <Diagram config={config} code={flowchartCode} />
+    </div>
+
+    <h2>class diagram</h2>
+    <code>
+        <pre>            {classDiagramCode}
+        </pre>
+    </code>
+
+    <p class="alert-error">
+        TODO: figure out why <code>classDiagramCode</code> is munted
+    </p>
+    <div class="mermaid">
+        <Diagram config={config} code={classDiagramCode} />
+    </div>
+
+    <h2>state diagram</h2>
+    <code>
+        <pre>            {stateDiagramCode}
+        </pre>
+    </code>
+
+    <div class="mermaid">
+        <Diagram config={config} code={stateDiagramCode} />
+    </div>
+
+    <h2>gantt chart</h2>
+    <code>
+        <pre>            {ganttChartCode}
+        </pre>
+    </code>
+
+    <p class="alert-error">
+        TODO: figure out why <code>ganttChartCode</code> is munted
+    </p>
+    <div class="mermaid">
+        <Diagram config={config} code={ganttChartCode} />
+    </div>
+
+    <h2>gantt chart</h2>
+    <code>
+        <pre>            {pieChartCode}
+        </pre>
+    </code>
+
+    <div class="mermaid">
+        <Diagram config={config} code={pieChartCode} />
+    </div>
+
+    <h2>entity relationship diagram</h2>
+    <code>
+        <pre>            {erDiagramCode}
+        </pre>
+    </code>
+
+    <p class="alert-error">
+        TODO: figure out why <code>erDiagramCode</code> is munted
+    </p>
+    <div class="mermaid">
+        <Diagram config={config} code={erDiagramCode} />
+    </div>
+
+    <h2>user journey</h2>
+    <code>
+        <pre>            {userJourneyCode}
+        </pre>
+    </code>
+
+    <p class="alert-error">
+        TODO: figure out why <code>userJourneyCode</code> is munted
+    </p>
+    <div class="mermaid">
+        <Diagram config={config} code={userJourneyCode} />
+    </div>
+
+    <h2>git graph</h2>
+    <code>
+        <pre>            {gitGraphCode}
+        </pre>
+    </code>
+
+    <div class="mermaid">
+        <Diagram config={config} code={gitGraphCode} />
+    </div>
+</Layout>
