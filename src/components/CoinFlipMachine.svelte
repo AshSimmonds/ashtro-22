@@ -8,8 +8,6 @@
     })
 </script>
 
-<h1>coin flip state machine - xstate + svelte</h1>
-
 <h2>State: {state.value}</h2>
 
 <button on:click={() => service.send("Flip")} class="btn"
