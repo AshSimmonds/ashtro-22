@@ -9,10 +9,14 @@ export interface Typegen0 {
   missingImplementations: {
     actions: never;
     services: never;
-    guards: "Odds" | "TwoHeads" | "TwoTails";
+    guards: never;
     delays: never;
   };
-  eventsCausingActions: {};
+  eventsCausingActions: {
+    incrementLosses: "Toss";
+    incrementTosses: "Toss";
+    incrementWins: "Toss";
+  };
   eventsCausingServices: {};
   eventsCausingGuards: {
     Odds: "Toss";
