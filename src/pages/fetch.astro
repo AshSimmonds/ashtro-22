@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const jsonResults = await fetch("https://pokeapi.co/api/v2/pokemon/ditto").then((res) => res.json());
+
+console.log (jsonResults);
+
+---
+
+<Layout title="stop trying to make fetch happen">
+	<main>
+
+        <h1>fetch</h1>
+
+        <div>
+            simplest version of getting data from an external source, random stuff from the <a href="https://pokeapi.co/api/v2/pokemon/ditto">pokemon API</a>.
+        </div>
+
+        <h2>rawResults</h2>
+
+        <pre>{JSON.stringify(jsonResults, null, 2)}</pre>
+
+
+    </main>
+</Layout>
