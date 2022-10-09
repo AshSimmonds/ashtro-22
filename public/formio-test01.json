@@ -1,0 +1,250 @@
+{
+    "display": "form",
+    "settings": {
+        "pdf": {
+            "id": "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+            "src": "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0"
+        }
+    },
+    "components": [
+        {
+            "html": "<p>fasdf</p><p>&nbsp;</p><p>asfff</p>",
+            "label": "Content",
+            "refreshOnChange": false,
+            "key": "content",
+            "type": "content",
+            "input": false,
+            "tableView": false
+        },
+        {
+            "label": "Tabs",
+            "components": [
+                {
+                    "label": "Tab 1",
+                    "key": "tab1",
+                    "components": [
+                        {
+                            "label": "Select",
+                            "widget": "choicesjs",
+                            "tableView": true,
+                            "data": {
+                                "values": [
+                                    {
+                                        "label": "zxcv",
+                                        "value": "zxcv"
+                                    },
+                                    {
+                                        "label": "uiop",
+                                        "value": "uiop"
+                                    }
+                                ]
+                            },
+                            "key": "select",
+                            "type": "select",
+                            "input": true
+                        }
+                    ]
+                },
+                {
+                    "label": "asdf",
+                    "key": "asdf",
+                    "components": [
+                        {
+                            "label": "Checkbox",
+                            "tableView": false,
+                            "key": "checkbox",
+                            "type": "checkbox",
+                            "input": true
+                        }
+                    ]
+                },
+                {
+                    "label": "qwer",
+                    "key": "qwer",
+                    "components": [
+                        {
+                            "label": "Radio",
+                            "optionsLabelPosition": "right",
+                            "inline": false,
+                            "tableView": false,
+                            "values": [
+                                {
+                                    "label": "vbnm",
+                                    "value": "vbnm",
+                                    "shortcut": ""
+                                },
+                                {
+                                    "label": "hjkl",
+                                    "value": "hjkl",
+                                    "shortcut": ""
+                                }
+                            ],
+                            "key": "radio1",
+                            "type": "radio",
+                            "input": true
+                        }
+                    ]
+                }
+            ],
+            "key": "tabs",
+            "type": "tabs",
+            "input": false,
+            "tableView": false
+        },
+        {
+            "label": "Email",
+            "tableView": true,
+            "key": "email",
+            "type": "email",
+            "input": true
+        },
+        {
+            "label": "Address",
+            "tableView": false,
+            "provider": "nominatim",
+            "key": "address",
+            "type": "address",
+            "providerOptions": {
+                "params": {
+                    "autocompleteOptions": {}
+                }
+            },
+            "input": true,
+            "components": [
+                {
+                    "label": "Address 1",
+                    "tableView": false,
+                    "key": "address1",
+                    "type": "textfield",
+                    "input": true,
+                    "customConditional": "show = _.get(instance, 'parent.manualMode', false);"
+                },
+                {
+                    "label": "Address 2",
+                    "tableView": false,
+                    "key": "address2",
+                    "type": "textfield",
+                    "input": true,
+                    "customConditional": "show = _.get(instance, 'parent.manualMode', false);"
+                },
+                {
+                    "label": "City",
+                    "tableView": false,
+                    "key": "city",
+                    "type": "textfield",
+                    "input": true,
+                    "customConditional": "show = _.get(instance, 'parent.manualMode', false);"
+                },
+                {
+                    "label": "State",
+                    "tableView": false,
+                    "key": "state",
+                    "type": "textfield",
+                    "input": true,
+                    "customConditional": "show = _.get(instance, 'parent.manualMode', false);"
+                },
+                {
+                    "label": "Country",
+                    "tableView": false,
+                    "key": "country",
+                    "type": "textfield",
+                    "input": true,
+                    "customConditional": "show = _.get(instance, 'parent.manualMode', false);"
+                },
+                {
+                    "label": "Zip Code",
+                    "tableView": false,
+                    "key": "zip",
+                    "type": "textfield",
+                    "input": true,
+                    "customConditional": "show = _.get(instance, 'parent.manualMode', false);"
+                }
+            ]
+        },
+        {
+            "label": "Text Area",
+            "autoExpand": false,
+            "tableView": true,
+            "key": "textArea",
+            "type": "textarea",
+            "input": true
+        },
+        {
+            "label": "Date / Time",
+            "tableView": false,
+            "datePicker": {
+                "disableWeekends": false,
+                "disableWeekdays": false
+            },
+            "enableMinDateInput": false,
+            "enableMaxDateInput": false,
+            "key": "dateTime",
+            "type": "datetime",
+            "input": true,
+            "widget": {
+                "type": "calendar",
+                "displayInTimezone": "viewer",
+                "locale": "en",
+                "useLocaleSettings": false,
+                "allowInput": true,
+                "mode": "single",
+                "enableTime": true,
+                "noCalendar": false,
+                "format": "yyyy-MM-dd hh:mm a",
+                "hourIncrement": 1,
+                "minuteIncrement": 1,
+                "time_24hr": false,
+                "minDate": null,
+                "disableWeekends": false,
+                "disableWeekdays": false,
+                "maxDate": null
+            }
+        },
+        {
+            "label": "Signature",
+            "tableView": false,
+            "key": "signature",
+            "type": "signature",
+            "input": true
+        },
+        {
+            "label": "Data Grid",
+            "reorder": false,
+            "addAnotherPosition": "bottom",
+            "layoutFixed": false,
+            "enableRowGroups": false,
+            "initEmpty": false,
+            "tableView": false,
+            "defaultValue": [
+                {}
+            ],
+            "key": "dataGrid",
+            "type": "datagrid",
+            "input": true,
+            "components": []
+        },
+        {
+            "label": "Data Map",
+            "tableView": false,
+            "key": "dataMap",
+            "type": "datamap",
+            "input": true,
+            "valueComponent": {
+                "type": "textfield",
+                "key": "value",
+                "label": "Value",
+                "input": true,
+                "hideLabel": true,
+                "tableView": true
+            }
+        },
+        {
+            "type": "button",
+            "label": "Submit",
+            "key": "submit",
+            "disableOnInvalid": true,
+            "input": true,
+            "tableView": false
+        }
+    ]
+}

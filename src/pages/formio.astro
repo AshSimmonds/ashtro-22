@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+import FormioForm from "../components/FormioForm"
+---
+
+<Layout title="form.io test">
+    <main>
+        <h1>form.io test</h1>
+
+        <FormioForm client:only="preact" />
+    </main>
+</Layout>
+
+<style>
+    body
+    {
+        background-color: initial !important;
+    }
+
+</style>
