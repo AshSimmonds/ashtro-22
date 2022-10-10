@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+const urlFormData = Astro.url.searchParams.get("json")
+
+console.log(`urlFormData: ${urlFormData}`)
+
+import { compress, decompress } from "compress-json"
+
+const jsonData = urlFormData ? JSON.parse(urlFormData) : {}
+
+// {"user":"Alice"}
+// %5B%5B%22user%22%2C%22a%7C0%22%2C%22Alice%22%2C%22o%7C1%7C2%22%5D%2C%223%22%5D
+// [  [  "  user"  ,  "  a|  0"  ,  "  Alice"  ,  "  o|  1|  2"  ]  ,  "  3"  ]
+
+let compressed = compress(jsonData)
+
+const encodedStuff = encodeURI(JSON.stringify(compressed))
+
+console.log(`encodedStuff: ${encodedStuff}`)
+
+const jsonCrackUrl = `https://jsoncrack.com/widget?json=${encodedStuff}`
+
+let reversed = decompress(compressed)
+encodedStuff === reversed // will be false
+JSON.stringify(encodedStuff) === JSON.stringify(reversed) // will be true
+---
+
+<Layout title="formio submitted data result">
+    <main>
+        <h1>formio submitted data</h1>
+
+        <h2>from: <a href="/formio">/formio</a></h2>
+
+        <div>
+            <iframe
+                src={jsonCrackUrl}
+                width="100%"
+                height="640"
+                style="border: 2px solid #b9bbbe; border-radius: 6px;"></iframe>
+        </div>
+    </main>
+</Layout>
