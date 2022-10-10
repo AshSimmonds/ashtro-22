@@ -1,21 +1,51 @@
----
-import Layout from "../layouts/Layout.astro"
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.form.io/formiojs/formio.full.min.css"
+        />
+        <script src="https://cdn.form.io/formiojs/formio.full.min.js"></script>
+        <script type="text/javascript">
 
-import FormioForm from "../components/FormioForm"
----
+            window.onload = async function () {
+                fetch("formio-test01.json")
+                    .then((response) => response.json())
+                    .then((jsonFormStructure) =>
+                        Formio.createForm(
+                            document.getElementById("formio"),
+                            jsonFormStructure
+                        )
+                    )
+                    .then((form) => {
+                        // Prevent the submission from going to the form.io server.
+                        form.nosubmit = true
 
-<Layout title="form.io test">
-    <main>
-        <h1>form.io test</h1>
+                        form.on("submit", function (submission) {
+                            console.log('#####################')
+                            console.log('#####################')
+                            console.log('#####################')
+                            console.log(submission)
+                            console.log('#####################')
+                            console.log('#####################')
+                            console.log('#####################')
 
-        <FormioForm client:only="preact" />
-    </main>
-</Layout>
-
-<style>
-    body
-    {
-        background-color: initial !important;
-    }
-
-</style>
+                            window.open(
+                                "/formio-result/?json=" +
+                                    JSON.stringify(submission)
+                            )
+                        })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+        </script>
+    </head>
+    <body>
+        <div id="formio"></div>
+    </body>
+</html>
