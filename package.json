@@ -31,6 +31,7 @@
     "@astrojs/solid-js": "^1.2.1",
     "@example/basics": "file:",
     "@julian_cataldo/astro-diagram": "^0.11.3",
+    "@rive-app/canvas": "^1.0.89",
     "@xstate/react": "^3.0.1",
     "@xstate/vue": "^2.0.0",
     "compress-json": "^2.1.2",
