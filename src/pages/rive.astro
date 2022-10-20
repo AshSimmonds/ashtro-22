@@ -1,37 +1,74 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout title="rive">
-	<main>
-
+    <main>
         <h1>rive</h1>
 
         <div>
-            asdf
+            <canvas id="canvas" class="w-full"></canvas>
+            <button id="idle" class="btn btn-success btn-outline">Start Truck</button>
+            <button id="wipers" class="btn btn-warn btn-outline">Wipers</button>
         </div>
 
-        <div>
-            <canvas id="canvas"></canvas>
-        </div>
-
-        <div>
-            qwer
-        </div>
+        <div id="loop">Looped Animation: TBD</div>
 
     </main>
 </Layout>
 
-
 <script>
     const rive = await import("@rive-app/canvas")
 
-    new rive.Rive({
-        // Hosted .riv asset, or a local one. Uncomment line 8 to try with
-        // a local basketball.riv asset, or add your own!
+    const idleButton = document.getElementById("idle")
+    const wipersButton = document.getElementById("wipers")
+    const loopDiv = document.getElementById("loop")
+
+    const truck = new rive.Rive({
         src: "https://cdn.rive.app/animations/vehicles.riv",
-        // src: "basketball.riv",
+        artboard: "Jeep",
         canvas: document.getElementById("canvas"),
-        autoplay: true,
+        layout: new rive.Layout({ fit: rive.Fit.Fill }),
+        // Listen for play events to update button text
+        onPlay: (event) => {
+            const names = event.data as string[]
+            names?.forEach((name) => {
+                if (name === "idle" && idleButton) {
+                    idleButton.innerHTML = "Stop Truck"
+                } else if (name === "windshield_wipers" && wipersButton) {
+                    wipersButton.innerHTML = "Stop Wipers"
+                }
+            })
+        },
+        // Listen for pause events to update button text
+        onPause: (event) => {
+            const names = event.data as string[]
+            names?.forEach((name) => {
+                if (name === "idle" && idleButton) {
+                    idleButton.innerHTML = "Start Truck"
+                } else if (name === "windshield_wipers" && wipersButton) {
+                    wipersButton.innerHTML = "Start Wipers"
+                }
+            })
+        },
+        onLoop: (event: any) => {
+            if (loopDiv) {
+                loopDiv.innerHTML = `Looped Animation: ${event.data?.animation}`
+            }
+        },
     })
+
+    idleButton
+        ? (idleButton.onclick = (_) =>
+              truck.playingAnimationNames.includes("idle")
+                  ? truck.pause("idle")
+                  : truck.play("idle"))
+        : null
+
+    wipersButton
+        ? (wipersButton.onclick = (_) =>
+              truck.playingAnimationNames.includes("windshield_wipers")
+                  ? truck.pause("windshield_wipers")
+                  : truck.play("windshield_wipers"))
+        : null
 </script>
