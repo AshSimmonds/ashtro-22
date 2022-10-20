@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro"
 import SvelteCounter from "../components/XStateCounterSvelte.svelte"
 import PreactCounter from "../components/XStateCounterPreact"
+import VueCounter from "../components/XStateCounterVue.vue"
 ---
 
 <Layout title="xstate machine in Astro using Svelte and Preact">
@@ -21,6 +22,11 @@ import PreactCounter from "../components/XStateCounterPreact"
         <div>
             <h2>Preact</h2>
             <PreactCounter client:load />
+        </div>
+
+        <div>
+            <h2>Vue</h2>
+            <VueCounter client:load />
         </div>
     </div>
 
