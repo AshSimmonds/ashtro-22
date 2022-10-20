@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro"
+import SvelteCounter from "../components/XStateCounterSvelte.svelte"
+import PreactCounter from "../components/XStateCounterPreact"
+---
+
+<Layout title="xstate machine in Astro using Svelte and Preact">
+    <h1>xstate machine in Astro using Svelte and Preact</h1>
+
+    <div>
+        All components share the same xstate finite state machine.
+    </div>
+
+    <hr />
+    <div class="grid grid-flow-col">
+        <div>
+            <h2>Svelte</h2>
+            <SvelteCounter client:load />
+        </div>
+
+        <div>
+            <h2>Preact</h2>
+            <PreactCounter client:load />
+        </div>
+    </div>
+
+    <hr />
+
+    <div>
+        Note: the buttons remain enabled and functional, it's the machine itself
+        which does not allow the counter to change.<br />
+        <br />
+        This is by design, to show that it's not an aesthetic thing, but denied or
+        allowed by the system itself - when <code>disabled</code> it's like the function
+        does not even exist, there is no logic required to deal with incoming requests
+        this way.
+    </div>
+
+    <br />
+
+    <img src="/xstate-counter-01.png" alt="astro-svelte" />
+</Layout>
