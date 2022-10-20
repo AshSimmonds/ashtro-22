@@ -1,22 +1,29 @@
 <script>
-    import { getInstance } from "../machines/counter"
+    import { counterMachineService } from "../machines/counter"
 
-    const service = getInstance()
-    let state
-    service.onTransition((newState) => {
-        state = newState
+    let counterState
+
+    counterMachineService.onTransition((newState) => {
+        counterState = newState
     })
 </script>
 
 <div >
     <p>
-        Counter: <span class="badge text-xl">{state.context.count}</span>
+        Counter: <span class="badge text-xl">{counterState.context.count}</span>
     </p>
-    <button on:click={() => service.send("decrement")} class="btn btn-circle text-xl">-</button>
-    <button on:click={() => service.send("increment")} class="btn btn-circle text-xl">+</button>
+    <button on:click={() => counterMachineService.send("decrement")} class="btn btn-circle text-xl">-</button>
+    <button on:click={() => counterMachineService.send("increment")} class="btn btn-circle text-xl">+</button>
+
     <p>
-        State: <span class="badge text-xl ">{state.value}</span>
+        State.value: <span class="badge text-xl ">{counterState.value}</span>
     </p>
-    <button on:click={() => service.send("disable")} class="btn btn-warning" >Disable</button>
-    <button on:click={() => service.send("enable")} class="btn btn-success" >Enable</button>
+
+    <button on:click={() => counterMachineService.send("disable")} class="btn btn-warning" >Disable</button>
+    <button on:click={() => counterMachineService.send("enable")} class="btn btn-success">Enable</button>
+
+    <div class="hidden">
+        <pre>{JSON.stringify(counterState, null, 4)}</pre>
+    </div>
+
 </div>
