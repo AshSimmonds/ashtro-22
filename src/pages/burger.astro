@@ -1,12 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro"
+
+import BurgerMachine from "../components/XStateBurger.svelte"
 ---
 
-<Layout title="empty">
+<Layout title="xstate burger machine">
     <main>
-        <h1>empty h1</h1>
+        <h1>xstate burger machine</h1>
 
-        <h2>empty h2</h2>
+        <div class="flex flex-col items-center">
+            <BurgerMachine client:load />
+        </div>
+
+        <h2>story</h2>
 
         <div>
             top comment on https://www.youtube.com/watch?v=erfWjBNDdOE
