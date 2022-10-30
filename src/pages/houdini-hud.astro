@@ -1,21 +1,21 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout title="houdini-HUD using Augmented-UI by @propjockey">
-	<main>
-		<h1>houdini-hud using Augmented-UI by @propjockey</h1>
+    <main>
+        <h1>houdini-hud using Augmented-UI by @propjockey</h1>
 
-		<a href="https://github.com/propjockey/houdini-hud">github repo</a>
+        <a href="https://github.com/propjockey/houdini-hud">github repo</a>
 
-		<h2>
-			Simplest example, just cutting top-left and bottom-right corners
-		</h2>
+        <h2>
+            Simplest example, just cutting top-left and bottom-right corners
+        </h2>
 
-		<section class="p-5">
-			<div class="hh01" data-houdini-hud="both">
-				<pre
-					style="background: #5c42e6; color: #b2a5fd">			
+        <section class="p-5">
+            <div class="hh01" data-houdini-hud="both">
+                <pre
+                    style="background: #5c42e6; color: #b2a5fd">			
 --hud-tl1: clip;
 --hud-tl1-size: 3rem;
 
@@ -26,87 +26,144 @@ import Layout from "../layouts/Layout.astro";
 
 padding: 2rem;
 				</pre>
-			</div>
-		</section>
+            </div>
+        </section>
 
+        <h2>
+            Example from Houdini-HUD's website, touching most zones and demo'ing
+            wacky colours
+        </h2>
 
-		<h2>
-			Example from Houdini-HUD's website, touching most zones and demo'ing wacky colours
-		</h2>
+        <section class="mt-5">
+            <div class="hh-demo text-sm" data-houdini-hud="both">
+                --hud-inlay-bg: #00ff00; --hud-inlay-opacity: 0.1;
+                --hud-bl-inset: 0.75rem; --hud-tr1: clip; --hud-tr1-size: 1rem;
+                --hud-l2: clip; --hud-l1: clip; --hud-bl2: round; --hud-bl1:
+                clip; --hud-l2-size: 1rem; --hud-l2-inset-y: 25%; --hud-l1-size:
+                0.25rem; --hud-bl2-size: 1rem; --hud-bl1-size: 0.5rem; --hud-b1:
+                clip; --hud-b1-size: 1rem; --hud-b1-inset-x: 33%; --hud-b2:
+                clip; --hud-b2-size: 0.25rem; --hud-br1: round; --hud-br1-size:
+                1rem; width: 100%; height: max(50%, 150px); --hud-inlay-all:
+                7px; --hud-border-all: 2px; --hud-border-opacity: 0.75;
+                --hud-border-bg: linear-gradient( to right, #ff0000, #00ff00 33%
+                66%, #0000ff );
+            </div>
+        </section>
 
+        <h2>Trying to make a reasonabl'ish default</h2>
 
-		<section class="mt-5">
-			<div class="hh-demo text-sm" data-houdini-hud="both">
-				--hud-inlay-bg: #00ff00; --hud-inlay-opacity: 0.1;
-				--hud-bl-inset: 0.75rem; --hud-tr1: clip; --hud-tr1-size: 1rem;
-				--hud-l2: clip; --hud-l1: clip; --hud-bl2: round; --hud-bl1:
-				clip; --hud-l2-size: 1rem; --hud-l2-inset-y: 25%; --hud-l1-size:
-				0.25rem; --hud-bl2-size: 1rem; --hud-bl1-size: 0.5rem; --hud-b1:
-				clip; --hud-b1-size: 1rem; --hud-b1-inset-x: 33%; --hud-b2:
-				clip; --hud-b2-size: 0.25rem; --hud-br1: round; --hud-br1-size:
-				1rem; width: 100%; height: max(50%, 150px); --hud-inlay-all:
-				7px; --hud-border-all: 2px; --hud-border-opacity: 0.75;
-				--hud-border-bg: linear-gradient( to right, #ff0000, #00ff00 33%
-				66%, #0000ff );
-			</div>
-		</section>
-	</main>
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                Bacon ipsum dolor amet jowl ham hock frankfurter shankle
+                shoulder, short ribs ham. Pancetta turducken chislic beef ribs
+                cupim porchetta. Ribeye shoulder jerky chuck chicken porchetta
+                alcatra doner jowl sausage pork buffalo. Boudin pork chop tongue
+                leberkas prosciutto. Chuck ground round tri-tip, pork belly beef
+                ribs pork chop capicola leberkas turkey burgdoggen jowl ham hock
+                buffalo tongue pork loin.<br />
+                <br />
+                Tri-tip capicola chislic shoulder.
+                Tongue ham hock porchetta fatback. Short ribs pork loin flank
+                ribeye pork belly, prosciutto cow beef ribs chislic. Pastrami
+                boudin cupim prosciutto ham frankfurter swine. Brisket jerky
+                turkey turducken, tri-tip cow boudin ribeye sausage shank
+                porchetta strip steak.
+            </div>
+        </section>
+
+        <hr />
+
+    </main>
 </Layout>
 
 <script src="https://unpkg.com/houdini-hud@0.0.1/index.js"></script>
 
 <style>
-	.hh01 {
-		--hud-tl1: clip;
-		--hud-tl1-size: 3rem;
+    .hh01 {
+        --hud-tl1: clip;
+        --hud-tl1-size: 3rem;
 
-		--hud-br1: clip;
-		--hud-br1-size: 3rem;
+        --hud-br1: clip;
+        --hud-br1-size: 3rem;
 
-		--hud-inlay-bg: #b2a5fd;
-		/* --hud-inlay-opacity: 0.33; */
+        --hud-inlay-bg: #b2a5fd;
+        /* --hud-inlay-opacity: 0.33; */
 
-		padding: 2rem;
-		margin: auto;
-		max-width: 66%;
-	}
+        padding: 2rem;
+        margin: auto;
+        max-width: 66%;
+    }
 
-	.hh-demo {
-		--hud-inlay-bg: #00ff00;
-		--hud-inlay-opacity: 0.1;
-		--hud-bl-inset: 0.75rem;
-		--hud-tr1: clip;
-		--hud-tr1-size: 1rem;
-		--hud-l2: clip;
-		--hud-l1: clip;
-		--hud-bl2: round;
-		--hud-bl1: clip;
-		--hud-l2-size: 1rem;
-		--hud-l2-inset-y: 25%;
-		--hud-l1-size: 0.25rem;
-		--hud-bl2-size: 1rem;
-		--hud-bl1-size: 0.5rem;
-		--hud-b1: clip;
-		--hud-b1-size: 1rem;
-		--hud-b1-inset-x: 33%;
-		--hud-b2: clip;
-		--hud-b2-size: 0.25rem;
-		--hud-br1: round;
-		--hud-br1-size: 1rem;
-		width: 100%;
-		height: max(50%, 150px);
-		--hud-inlay-all: 7px;
-		--hud-border-all: 2px;
-		--hud-border-opacity: 0.75;
-		--hud-border-bg: linear-gradient(
-			to right,
-			#ff0000,
-			#00ff00 33% 66%,
-			#0000ff
-		);
+    .hh-demo {
+        --hud-inlay-bg: #00ff00;
+        --hud-inlay-opacity: 0.1;
+        --hud-bl-inset: 0.75rem;
+        --hud-tr1: clip;
+        --hud-tr1-size: 1rem;
+        --hud-l2: clip;
+        --hud-l1: clip;
+        --hud-bl2: round;
+        --hud-bl1: clip;
+        --hud-l2-size: 1rem;
+        --hud-l2-inset-y: 25%;
+        --hud-l1-size: 0.25rem;
+        --hud-bl2-size: 1rem;
+        --hud-bl1-size: 0.5rem;
+        --hud-b1: clip;
+        --hud-b1-size: 1rem;
+        --hud-b1-inset-x: 33%;
+        --hud-b2: clip;
+        --hud-b2-size: 0.25rem;
+        --hud-br1: round;
+        --hud-br1-size: 1rem;
+        width: 100%;
+        height: max(50%, 150px);
+        --hud-inlay-all: 7px;
+        --hud-border-all: 2px;
+        --hud-border-opacity: 0.75;
+        --hud-border-bg: linear-gradient(
+            to right,
+            #ff0000,
+            #00ff00 33% 66%,
+            #0000ff
+        );
 
-		padding: 2rem;
-		margin: auto;
-		max-width: 80%;
-	}
+        padding: 2rem;
+        margin: auto;
+        max-width: 80%;
+    }
+
+    .hexed {
+        --hud-inlay-bg: #0bb2b0;
+        --hud-inlay-opacity: 0.1;
+        --hud-bl-inset: 0.75rem;
+        --hud-tr1: clip;
+        --hud-tr1-size: 3rem;
+        --hud-l2: clip;
+        --hud-l1: clip;
+        --hud-bl2: round;
+        --hud-bl1: clip;
+        --hud-l2-size: 1rem;
+        --hud-l2-inset-y: 25%;
+        --hud-l1-size: 0.25rem;
+        --hud-bl2-size: 1rem;
+        --hud-bl1-size: 0.5rem;
+        --hud-b1: clip;
+        --hud-b1-size: 1rem;
+        --hud-b1-inset-x: 33%;
+        --hud-b2: clip;
+        --hud-b2-size: 0.25rem;
+        --hud-br1: round;
+        --hud-br1-size: 1rem;
+        width: 100%;
+        height: max(50%, 150px);
+        --hud-inlay-all: 7px;
+        --hud-border-all: 2px;
+        --hud-border-opacity: 0.75;
+        --hud-border-bg: #0bb2b0;
+
+        padding: 3rem;
+        margin: auto;
+        max-width: 80%;
+    }
 </style>
