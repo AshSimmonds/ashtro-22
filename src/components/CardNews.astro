@@ -1,0 +1,63 @@
+---
+export interface Props {
+    id: string
+    title: string
+    url: string
+    redditUrl: string
+    subreddit: string
+    author: string
+    thumbnail: string
+    thumbnail_height: string
+    thumbnail_width: string
+    published: string
+}
+
+var {
+    id,
+    title,
+    url,
+    redditUrl,
+    subreddit,
+    author,
+    thumbnail,
+    thumbnail_height,
+    thumbnail_width,
+    published,
+} = Astro.props
+
+redditUrl = "https://reddit.com" + redditUrl
+
+var rightMeow = new Date(published * 1000).toLocaleDateString() as string
+
+if (url.substr(url.length - 3, 3) == "jpg") {
+    thumbnail = url
+    url = redditUrl
+}
+---
+
+<div class="card card-bordered lg:card-side bg-base-300 shadow-xl">
+    <figure class="bg-base-100">
+        <a href={url}
+            ><img
+                src={thumbnail}
+                alt={title}
+                style="max-width: 300px; max-height: 300px;"
+            />
+        </a>
+    </figure>
+    <div class="card-body">
+        <a href={url} class="link-hover"
+            ><h3 class="card-title mt-0">{title}</h3>
+        </a>
+
+        <span class="text-2xs font-bold">{rightMeow}</span>
+
+        <div class="card-actions justify-end">
+            <a href={redditUrl} class="btn btn-primary">/r/{subreddit}</a>
+        </div>
+    </div>
+</div>
+
+<style>
+
+</style>

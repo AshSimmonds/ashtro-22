@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+import CardNews from "../components/CardNews.astro"
+// import { Code } from "astro/components"
+// import { XMLParser, XMLBuilder, XMLValidator } from "fast-xml-parser"
+
+console.log("news.astro STARTING")
+
+// const parser = new XMLParser()
+
+const maxResults = 10
+
+const sourceDataUrl =
+    "https://www.reddit.com/user/ashsimmonds/m/bluedwarfspace/.json?t=day&limit=" +
+    maxResults
+const NewsDataResponse = await fetch(sourceDataUrl)
+//const NewsDataText = await NewsDataResponse.text();
+const NewsDataJson = await NewsDataResponse.json()
+//const NewsDataObject = parser.parse(NewsDataText);
+const NewsDataResults = NewsDataJson.data.children
+
+var itsTheFinalOutput = []
+
+//if (NewsDataResults[] != null)
+//{
+itsTheFinalOutput = NewsDataResults
+//}
+
+// console.log(NewsDataResults);
+
+console.log("news.astro ENDING")
+---
+
+<Layout title="News | Blue Dwarf Space">
+    <main class="container mx-auto text-center">
+        <h1>
+            Space News <a
+                href={sourceDataUrl}
+                target="_blank"
+                class="badge badge-outline">src | 07-Jun-2022</a>
+        </h1>
+
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-6"
+        >
+            {
+                itsTheFinalOutput.map((entry: { data: { id: string; title: string; url: string; permalink: string; subreddit: string; author: string; thumbnail: string; thumbnail_height: string; thumbnail_width: string; created_utc: string } }) => (
+                    <CardNews
+                        id={entry.data.id}
+                        title={entry.data.title}
+                        url={entry.data.url}
+                        redditUrl={entry.data.permalink}
+                        subreddit={entry.data.subreddit}
+                        author={entry.data.author}
+                        thumbnail={entry.data.thumbnail}
+                        thumbnail_height={entry.data.thumbnail_height}
+                        thumbnail_width={entry.data.thumbnail_width}
+                        published={entry.data.created_utc}
+                    />
+                ))
+            }
+        </div>
+    </main>
+</Layout>
