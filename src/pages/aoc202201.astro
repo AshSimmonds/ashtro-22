@@ -1,7 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import fs from "node:fs/promises"
 
-const snacks = await fetch('http://localhost:3000/aoc2022/aoc01.txt').then(r => r.text())
+const snacksUrl = new URL("../data/aoc202201.txt", import.meta.url)
+const snacks = await fs.readFile(snacksUrl, "utf-8")
 
 const paylaods: any[] = []
 
@@ -27,9 +29,11 @@ snacks.split(/\r?\n/).forEach((line) => {
 
 paylaods.sort((a, b) => b.calories - a.calories)
 
-const fattestElf = paylaods[0]
+const fattestElf = paylaods[0] ? paylaods[0] : { calories: 0, payload: [] }
 const secondFattestElf = paylaods[1]
-const thirdFattestElf = paylaods[2]
+    ? paylaods[1]
+    : { calories: 0, payload: [] }
+const thirdFattestElf = paylaods[2] ? paylaods[2] : { calories: 0, payload: [] }
 
 const fattestTop3 =
     fattestElf.calories + secondFattestElf.calories + thirdFattestElf.calories
@@ -47,12 +51,11 @@ const fattestTop3 =
             } containers.
         </p>
 
-        <pre>
-            <ul>
+        <pre
+            class="mt-0 pt-0">
             {fattestElf.payload.map((item: unknown) => (
                 <li>{item}</li>
             ))}
-            </ul>
         </pre>
 
         <hr />
@@ -65,21 +68,18 @@ const fattestTop3 =
             secondFattestElf.payload.length
         } packages
         <pre>
-                    <ul>
-                    {secondFattestElf.payload.map((item: any) => (
-                        <li>{item}</li>
-                    ))}
-                    </ul>
-                </pre>
+            {secondFattestElf.payload.map((item: any) => (
+                <li>{item}</li>
+            ))}
+        </pre>
+
         3rd fattest Elf carries {thirdFattestElf.calories} calories in {
             thirdFattestElf.payload.length
         } packages
         <pre>
-                <ul>
-                    {thirdFattestElf.payload.map((item: number) => (
-                        <li>{item}</li>
-                    ))}
-                </ul>
-            </pre>
+            {thirdFattestElf.payload.map((item: number) => (
+                <li>{item}</li>
+            ))}
+        </pre>
     </main>
 </Layout>
