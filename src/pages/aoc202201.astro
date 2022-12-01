@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import fs from "node:fs/promises"
 
-const snacks = await fs.readFile("./public/aoc2022/aoc01.txt", "utf8")
+const snacks = await fetch('https://g0.wtf/aoc2022/aoc01.txt').then(r => r.text())
 
 const paylaods: any[] = []
 
