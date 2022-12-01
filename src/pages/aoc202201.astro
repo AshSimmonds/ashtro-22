@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import { Code } from "astro/components"
+
 import fs from "node:fs/promises"
 
 const snacksUrl = new URL("../data/aoc202201.txt", import.meta.url)
@@ -30,9 +32,11 @@ snacks.split(/\r?\n/).forEach((line) => {
 paylaods.sort((a, b) => b.calories - a.calories)
 
 const fattestElf = paylaods[0] ? paylaods[0] : { calories: 0, payload: [] }
+
 const secondFattestElf = paylaods[1]
     ? paylaods[1]
     : { calories: 0, payload: [] }
+
 const thirdFattestElf = paylaods[2] ? paylaods[2] : { calories: 0, payload: [] }
 
 const fattestTop3 =
@@ -43,43 +47,213 @@ const fattestTop3 =
     <main>
         <h1>Advent of Code 2022 - 01</h1>
 
-        <h2>Part Uno</h2>
+        <h2 id="resources">Resources</h2>
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                    <p>
+                        <a href="https://adventofcode.com/2022/day/1">Day 1</a>
+                    </p>
+                    <p>
+                        Basically take a list of number entries representing snacks of calorie value, each blank line demarcates a new Elf's payload of snacks. Find the top 3 fattest elves and their payloads.
+                    </p>
+                    <pre>
+1000
+2000
+3000
 
-        <p>
-            Fattest Elf is carrying {fattestElf.calories} calories in {
-                fattestElf.payload.length
-            } containers.
-        </p>
+4000
 
-        <pre
-            class="mt-0 pt-0">
+5000
+6000
+
+7000
+8000
+9000
+
+10000
+
+                    </pre>
+            </div>
+        </section>
+
+        <h2>Answers</h2>
+
+        <h3 class="ml-8" id="part1">Part Uno</h3>
+
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                <p class="alert alert-success">
+                    Fattest Elf is carrying {fattestElf.calories} calories in {
+                        fattestElf.payload.length
+                    } containers.
+                </p>
+
+                <div class="hh01" data-houdini-hud="both">
+                    <pre
+                        style="background: #5c42e6; color: #b2a5fd">
             {fattestElf.payload.map((item: unknown) => (
                 <li>{item}</li>
             ))}
-        </pre>
+            </pre>
+                </div>
+            </div>
+        </section>
 
-        <hr />
+        <h3 class="ml-8" id="part2">Part Deux</h3>
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                <p class="alert alert-success">
+                    Top 3 fattest elves TOTAL calories: {fattestTop3}
+                </p>
 
-        <h2>Part Deux</h2>
+                2nd fattest Elf carries <code>{secondFattestElf.calories}</code>
+                calories in <code>{secondFattestElf.payload.length}</code> packages
 
-        <p>Top 3 fattest elves TOTAL calories: {fattestTop3}</p>
-
-        2nd fattest Elf carries {secondFattestElf.calories} calories in {
-            secondFattestElf.payload.length
-        } packages
-        <pre>
+                <div class="hh01" data-houdini-hud="both">
+                    <pre
+                        style="background: #5c42e6; color: #b2a5fd">
             {secondFattestElf.payload.map((item: any) => (
                 <li>{item}</li>
             ))}
         </pre>
+                </div>
 
-        3rd fattest Elf carries {thirdFattestElf.calories} calories in {
-            thirdFattestElf.payload.length
-        } packages
-        <pre>
+                3rd fattest Elf carries <code>{thirdFattestElf.calories}</code> calories
+                in <code>{thirdFattestElf.payload.length}</code> packages
+
+                <div class="hh01" data-houdini-hud="both">
+                    <pre
+                        style="background: #5c42e6; color: #b2a5fd">
             {thirdFattestElf.payload.map((item: number) => (
                 <li>{item}</li>
             ))}
         </pre>
+                </div>
+            </div>
+        </section>
+
+        <h3 class="ml-8" id="code">Code</h3>
+
+        (was a lot longer on part one, only partially refactored in part two,
+        can not be arsed to do more)
+
+        <pre
+            class="shadow-lg mockup-code"><Code lang="js" code={`
+import fs from "node:fs/promises"
+
+const snacksUrl = new URL("../data/aoc202201.txt", import.meta.url)
+const snacks = await fs.readFile(snacksUrl, "utf-8")
+
+const paylaods: any[] = []
+
+let currentElfFattyBoombah = 0
+let currentElfFattyBoombahPayload: any[] = []
+
+snacks.split(/\r?\n/).forEach((line) => {
+    if (line !== "") {
+        currentElfFattyBoombah += parseInt(line)
+        currentElfFattyBoombahPayload.push(parseInt(line))
+    } else {
+        const fattyElf = {
+            calories: currentElfFattyBoombah,
+            payload: currentElfFattyBoombahPayload,
+        }
+
+        paylaods.push(fattyElf)
+
+        currentElfFattyBoombah = 0
+        currentElfFattyBoombahPayload = []
+    }
+})
+
+paylaods.sort((a, b) => b.calories - a.calories)
+
+const fattestElf = paylaods[0] ? paylaods[0] : { calories: 0, payload: [] }
+
+const secondFattestElf = paylaods[1]
+    ? paylaods[1]
+    : { calories: 0, payload: [] }
+
+const thirdFattestElf = paylaods[2] ? paylaods[2] : { calories: 0, payload: [] }
+
+const fattestTop3 =
+    fattestElf.calories + secondFattestElf.calories + thirdFattestElf.calories
+
+`} /></pre>
+
+        <h3 class="ml-8" id="video">Video</h3>
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                <iframe
+                    class="w-full md:h-96"
+                    src="https://www.youtube.com/embed/QF1nzYWDEW0"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </section>
     </main>
 </Layout>
+
+<script src="https://unpkg.com/houdini-hud@0.0.1/index.js"></script>
+
+<style>
+    .prose h2,
+    h2 {
+        margin-top: 4.5rem !important;
+    }
+
+    .prose h3,
+    h3 {
+        margin-top: 3.5rem !important;
+    }
+    .hh01 {
+        --hud-tl1: clip;
+        --hud-tl1-size: 2.5rem;
+
+        --hud-br1: clip;
+        --hud-br1-size: 2.5rem;
+
+        --hud-inlay-bg: #b2a5fd;
+        /* --hud-inlay-opacity: 0.33; */
+
+        padding: 1.5rem;
+        margin: auto;
+        max-width: 66%;
+    }
+
+    .hexed {
+        --hud-inlay-bg: #0bb2b0;
+        --hud-inlay-opacity: 0.1;
+        --hud-bl-inset: 0.75rem;
+        --hud-tr1: clip;
+        --hud-tr1-size: 3rem;
+        --hud-l2: clip;
+        --hud-l1: clip;
+        --hud-bl2: round;
+        --hud-bl1: clip;
+        --hud-l2-size: 1rem;
+        --hud-l2-inset-y: 25%;
+        --hud-l1-size: 0.25rem;
+        --hud-bl2-size: 1rem;
+        --hud-bl1-size: 0.5rem;
+        --hud-b1: clip;
+        --hud-b1-size: 1rem;
+        --hud-b1-inset-x: 33%;
+        --hud-b2: clip;
+        --hud-b2-size: 0.25rem;
+        --hud-br1: round;
+        --hud-br1-size: 1rem;
+        width: 100%;
+        height: max(50%, 150px);
+        --hud-inlay-all: 7px;
+        --hud-border-all: 2px;
+        --hud-border-opacity: 0.75;
+        --hud-border-bg: #0bb2b0;
+
+        padding: 3rem;
+        margin: auto;
+        max-width: 80%;
+    }
+</style>
