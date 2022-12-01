@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+
+let fattestElf = 0
+
+const elves = [
+    { payload: [ 1000, 2000, 3000 ] },
+    { payload: [ 4000 ] },
+    { payload: [ 5000, 6000 ] },
+    { payload: [ 7000, 8000, 9000 ] },
+    { payload: [ 10000 ] },
+]
+
+for (const elf of elves) {
+
+    const sumOfElfPayload = elf.payload.reduce((a, b) => a + b, 0)
+
+    console.log(`Elf ${elf} has a payload of ${sumOfElfPayload}`)
+
+    if (sumOfElfPayload > fattestElf) {
+        fattestElf = sumOfElfPayload
+    }
+    
+}
+
+
+
+---
+
+<Layout title="Advent of Code 2022 - 01">
+	<main>
+
+        <h1>Advent of Code 2022 - 01</h1>
+
+        <p>Elves: {elves.length}</p>
+
+        <p>Fattest Elf: {fattestElf}</p>
+
+    </main>
+</Layout>
