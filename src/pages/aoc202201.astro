@@ -2,10 +2,14 @@
 import Layout from "../layouts/Layout.astro"
 import { Code } from "astro/components"
 
-import fs from "node:fs/promises"
+// import fs from "node:fs/promises"
 
-const snacksUrl = new URL("./aoc/aoc202201.txt", import.meta.url)
-const snacks = await fs.readFile(snacksUrl, "utf-8")
+// const localSnacksUrl = new URL("./aoc/aoc202201.txt", import.meta.url)
+const vercelSnacksUrl = 'https://g0.wtf/aoc/aoc202201.txt'
+
+// const snacks = await fs.readFile(localSnacksUrl, "utf-8")
+
+const snacks = await fetch(vercelSnacksUrl).then(res => res.text())
 
 const paylaods: any[] = []
 
@@ -50,13 +54,16 @@ const fattestTop3 =
         <h2 id="resources">Resources</h2>
         <section class="mt-5">
             <div class="hexed" data-houdini-hud="both">
-                    <p>
-                        <a href="https://adventofcode.com/2022/day/1">Day 1</a>
-                    </p>
-                    <p>
-                        Basically take a list of number entries representing snacks of calorie value, each blank line demarcates a new Elf's payload of snacks. Find the top 3 fattest elves and their payloads.
-                    </p>
-                    <pre>
+                <p>
+                    <a href="https://adventofcode.com/2022/day/1">Day 1</a>
+                </p>
+                <p>
+                    Basically take a list of number entries representing snacks
+                    of calorie value, each blank line demarcates a new Elf's
+                    payload of snacks. Find the top 3 fattest elves and their
+                    payloads.
+                </p>
+                <pre>
 1000
 2000
 3000
@@ -70,9 +77,11 @@ const fattestTop3 =
 8000
 9000
 
-10000
+10000</pre>
 
-                    </pre>
+                <p>
+                    Full payload: <a href="/aoc/aoc202201.txt">aoc202201.txt</a> ~2k lines
+                </p>
             </div>
         </section>
 
