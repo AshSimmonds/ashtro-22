@@ -1,41 +1,86 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import fs from "node:fs/promises"
 
+const snacks = await fs.readFile("./public/aoc2022/aoc01.txt", "utf8")
 
-let fattestElf = 0
+const paylaods: any[] = []
 
-const elves = [
-    { payload: [ 1000, 2000, 3000 ] },
-    { payload: [ 4000 ] },
-    { payload: [ 5000, 6000 ] },
-    { payload: [ 7000, 8000, 9000 ] },
-    { payload: [ 10000 ] },
-]
+let currentElfFattyBoombah = 0
+let currentElfFattyBoombahPayload: any[] = []
 
-for (const elf of elves) {
+snacks.split(/\r?\n/).forEach((line) => {
+    if (line !== "") {
+        currentElfFattyBoombah += parseInt(line)
+        currentElfFattyBoombahPayload.push(parseInt(line))
+    } else {
+        const fattyElf = {
+            calories: currentElfFattyBoombah,
+            payload: currentElfFattyBoombahPayload,
+        }
 
-    const sumOfElfPayload = elf.payload.reduce((a, b) => a + b, 0)
+        paylaods.push(fattyElf)
 
-    console.log(`Elf ${elf} has a payload of ${sumOfElfPayload}`)
-
-    if (sumOfElfPayload > fattestElf) {
-        fattestElf = sumOfElfPayload
+        currentElfFattyBoombah = 0
+        currentElfFattyBoombahPayload = []
     }
-    
-}
+})
 
+paylaods.sort((a, b) => b.calories - a.calories)
 
+const fattestElf = paylaods[0]
+const secondFattestElf = paylaods[1]
+const thirdFattestElf = paylaods[2]
 
+const fattestTop3 =
+    fattestElf.calories + secondFattestElf.calories + thirdFattestElf.calories
 ---
 
 <Layout title="Advent of Code 2022 - 01">
-	<main>
-
+    <main>
         <h1>Advent of Code 2022 - 01</h1>
 
-        <p>Elves: {elves.length}</p>
+        <h2>Part Uno</h2>
 
-        <p>Fattest Elf: {fattestElf}</p>
+        <p>
+            Fattest Elf is carrying {fattestElf.calories} calories in {
+                fattestElf.payload.length
+            } containers.
+        </p>
 
+        <pre>
+            <ul>
+            {fattestElf.payload.map((item: unknown) => (
+                <li>{item}</li>
+            ))}
+            </ul>
+        </pre>
+
+        <hr />
+
+        <h2>Part Deux</h2>
+
+        <p>Top 3 fattest elves TOTAL calories: {fattestTop3}</p>
+
+        2nd fattest Elf carries {secondFattestElf.calories} calories in {
+            secondFattestElf.payload.length
+        } packages
+        <pre>
+                    <ul>
+                    {secondFattestElf.payload.map((item: any) => (
+                        <li>{item}</li>
+                    ))}
+                    </ul>
+                </pre>
+        3rd fattest Elf carries {thirdFattestElf.calories} calories in {
+            thirdFattestElf.payload.length
+        } packages
+        <pre>
+                <ul>
+                    {thirdFattestElf.payload.map((item: number) => (
+                        <li>{item}</li>
+                    ))}
+                </ul>
+            </pre>
     </main>
 </Layout>
