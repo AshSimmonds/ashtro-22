@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import fs from "node:fs/promises"
+import { Code } from "astro/components"
 
 const localDataUrl = new URL("./aoc/aoc202202.txt", import.meta.url)
 const localDataTestUrl = new URL(
@@ -8,9 +9,16 @@ const localDataTestUrl = new URL(
     import.meta.url
 )
 
+// const deployedDataUrl = 'https://g0.wtf/aoc/aoc202202.txt'
+// const deployedDataTestUrl = 'https://g0.wtf/aoc/aoc202202-testdata.txt'
+
 // LOCAL DATA
 const dataProd = await fs.readFile(localDataUrl, "utf-8")
 const dataTest = await fs.readFile(localDataTestUrl, "utf-8")
+
+// DEPLOYED DATA
+// const dataProd = await fetch(deployedDataUrl).then(res => res.text())
+// const dataTest = await fetch(deployedDataTestUrl).then(res => res.text())
 
 console.log(`dataProd.length:`, dataProd.length)
 console.log(`dataTest.length:`, dataTest.length)
@@ -29,12 +37,15 @@ const turingRock = "X"
 const turingPaper = "Y"
 const turingScissors = "Z"
 
-let turingTotalScore = 0
-let enigmaTotalScore = 0
+const precogLose = "X"
+const precogTie = "Y"
+const precogWin = "Z"
 
 let lineCownt = 0
 
-const games: any[] = []
+const gamesTest: any[] = []
+const gamesOne: any[] = []
+const gamesTwo: any[] = []
 
 let currentGame: any = {
     id: Number,
@@ -42,13 +53,16 @@ let currentGame: any = {
     turing: String,
     winner: String,
     turingScore: Number,
-    // enigmaScore: Number,
 }
 
-function shotgunBobulator(theData: string) {
-    theData.split(/\r?\n/).forEach((theLine) => {
-        // console.log(`theLine ${lineCownt}:`, theLine)
+function shotgunBobulator(
+    theData: string,
+    theGames: any[],
+    precog: boolean = false
+) {
+    let turingTotalScore = 0
 
+    theData.split(/\r?\n/).forEach((theLine) => {
         const enigmaSelection = theLine[0]
         const turingSelection = theLine[2]
 
@@ -65,19 +79,60 @@ function shotgunBobulator(theData: string) {
                 ") " +
                 shotgunTranslator(turingSelection),
             winner: shotgunChickenDinner(enigmaSelection, turingSelection),
-            turingScore: shotgunScore(enigmaSelection, turingSelection),
-            // enigmaScore: shotgunScore(turingSelection, enigmaSelection),
+            turingScore: shotgunScore(
+                enigmaSelection,
+                precogify(enigmaSelection!, turingSelection!, precog)
+            ),
         }
 
-        // console.log(`currentGame:`, currentGame)
-
         turingTotalScore += currentGame.turingScore
-        enigmaTotalScore += currentGame.enigmaScore
 
-        games.push(currentGame)
+        theGames.push(currentGame)
 
         lineCownt++
     })
+
+    return turingTotalScore
+}
+
+function precogify(
+    enigmaSelection: string,
+    turingSelection: string,
+    precog: boolean = false
+) {
+    let precoggedSelection = turingSelection
+
+    if (precog) {
+        if (turingSelection === precogTie) {
+            precoggedSelection = enigmaSelection
+        }
+
+        if (turingSelection === precogWin) {
+            if (enigmaSelection === enigmaRock) {
+                precoggedSelection = turingPaper
+            }
+            if (enigmaSelection === enigmaPaper) {
+                precoggedSelection = turingScissors
+            }
+            if (enigmaSelection === enigmaScissors) {
+                precoggedSelection = turingRock
+            }
+        }
+
+        if (turingSelection === precogLose) {
+            if (enigmaSelection === enigmaRock) {
+                precoggedSelection = turingScissors
+            }
+            if (enigmaSelection === enigmaPaper) {
+                precoggedSelection = turingRock
+            }
+            if (enigmaSelection === enigmaScissors) {
+                precoggedSelection = turingPaper
+            }
+        }
+    }
+
+    return precoggedSelection
 }
 
 function shotgunTranslator(weaponOfChoice: string | undefined) {
@@ -141,15 +196,11 @@ function shotgunScore(
     enigmaSelection: string | undefined,
     turingSelection: string | undefined
 ) {
-    const weaponScore = shotgunWeaponScore(enigmaSelection, turingSelection)
-    // console.log(`weaponScore:`, weaponScore)
+    const weaponScore = shotgunWeaponScore(turingSelection)
 
     const gameScore = shotgunGameScore(enigmaSelection, turingSelection)
-    // console.log(`gameScore:`, gameScore)
 
     const totalScore = weaponScore + gameScore
-
-    // console.log(`totalScore:`, totalScore)
 
     return totalScore
 }
@@ -174,14 +225,8 @@ function shotgunGameScore(
     }
 }
 
-function shotgunWeaponScore(
-    enigmaSelection: string | undefined,
-    turingSelection: string | undefined
-) {
-    const enigmaSelectionTranslated = shotgunTranslator(enigmaSelection)
+function shotgunWeaponScore(turingSelection: string | undefined) {
     const turingSelectionTranslated = shotgunTranslator(turingSelection)
-
-    // console.log(`enigmaSelectionTranslated:`, enigmaSelectionTranslated)
 
     if (turingSelectionTranslated === "rock") {
         return scoreForSelectingRock
@@ -194,7 +239,11 @@ function shotgunWeaponScore(
     }
 }
 
-shotgunBobulator(dataProd)
+const turingTotalScoreTest = shotgunBobulator(dataTest, gamesTest, false)
+
+const turingTotalScoreOne = shotgunBobulator(dataProd, gamesOne, false)
+
+const turingTotalScoreTwo = shotgunBobulator(dataProd, gamesTwo, true)
 ---
 
 <Layout title="Advent of Code 2022 - 02">
@@ -207,23 +256,25 @@ shotgunBobulator(dataProd)
                 <p>
                     <a href="https://adventofcode.com/2022/day/2">Day 2</a>
                 </p>
-                <p>
-                    Rock paper scissors simulator.<br />
-                    <br />
-                    Score table for selection: <br />
+                <p>Rock paper scissors / enigma vs turing machine simulator</p>
+
+                <div>
+                    Score table for selection:
                     <ul>
                         <li>{scoreForSelectingRock} - Rock</li>
                         <li>{scoreForSelectingPaper} - Paper</li>
                         <li>{scoreForSelectingScissors} - Scissors</li>
                     </ul>
-
-                    Score table for outcome: <br />
+                </div>
+                <div>
+                    Score table for outcome:
                     <ul>
                         <li>{scoreForWin} - Win</li>
                         <li>{scoreForLoss} - Loss</li>
                         <li>{scoreForTie} - Tie</li>
                     </ul>
-                </p>
+                </div>
+
                 <h4>Example data</h4>
                 <pre>
 A Y
@@ -231,6 +282,17 @@ B X
 C Z
                 </pre>
 
+                <h4>TEST DATA</h4>
+                <pre
+                    class="overflow-scroll">
+{JSON.stringify(gamesTest, null, 4)}
+                </pre>
+
+                <h4>RESULT</h4>
+
+                <div class="alert alert-success">
+                    PLAYER SCORE: {turingTotalScoreTest}
+                </div>
                 <p>
                     Full payload: <a href="/aoc/aoc202202.txt">aoc202202.txt</a>
                 </p>
@@ -243,26 +305,294 @@ C Z
 
         <section class="mt-5">
             <div class="hexed" data-houdini-hud="both">
-                <h4>TEST DATA (hidden)</h4>
-                <pre class="overflow-scroll hidden">
-{JSON.stringify(games, null, 4)}
-                </pre>
-
                 <h4>RESULT</h4>
 
                 <div class="alert alert-success">
-                    PLAYER SCORE: {turingTotalScore}
+                    PLAYER SCORE: {turingTotalScoreOne}
                 </div>
-                <!-- <div class="alert alert-warning">
-                    OPPONENT SCORE: {enigmaTotalScore}
-                </div> -->
 
+                <h4>GAMES DATA</h4>
+
+                <div x-data="{ partOneDataShow: false }">
+                    <button
+                        x-on:click="partOneDataShow = ! partOneDataShow"
+                        class="btn">SHOW / HIDE</button
+                    >
+                    <pre
+                        x-show="partOneDataShow">
+{JSON.stringify(gamesOne, null, 4)}
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <h2 id="thoughts" class="mt-48">final thoughts</h2>
+        <h3 class="ml-8" id="part1">Part Two</h3>
+
         <section class="mt-5">
-            <div class="hexed p-60" data-houdini-hud="both">asdf</div>
+            <div class="hexed" data-houdini-hud="both">
+                <h4>RESULT</h4>
+
+                <div class="alert alert-success">
+                    PLAYER SCORE: {turingTotalScoreTwo}
+                </div>
+
+                <h4>GAMES DATA</h4>
+                <div x-data="{ partOneDataShow: false }">
+                    <button
+                        x-on:click="partOneDataShow = ! partOneDataShow"
+                        class="btn">SHOW / HIDE</button
+                    >
+                    <pre
+                        x-show="partOneDataShow">
+{JSON.stringify(gamesTwo, null, 4)}
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <h2 id="code" class="mt-48">Code</h2>
+        <section class="mt-5">
+            <pre
+                class="shadow-lg mockup-code"><Code lang="js" code={`
+
+const scoreForSelectingRock = 1
+const scoreForSelectingPaper = 2
+const scoreForSelectingScissors = 3
+const scoreForWin = 6
+const scoreForLoss = 0
+const scoreForTie = 3
+
+const enigmaRock = "A"
+const enigmaPaper = "B"
+const enigmaScissors = "C"
+const turingRock = "X"
+const turingPaper = "Y"
+const turingScissors = "Z"
+
+const precogLose = "X"
+const precogTie = "Y"
+const precogWin = "Z"
+
+let lineCownt = 0
+
+const gamesTest: any[] = []
+const gamesOne: any[] = []
+const gamesTwo: any[] = []
+
+let currentGame: any = {
+    id: Number,
+    enigma: String,
+    turing: String,
+    winner: String,
+    turingScore: Number,
+}
+
+function shotgunBobulator(
+    theData: string,
+    theGames: any[],
+    precog: boolean = false
+) {
+    let turingTotalScore = 0
+
+    theData.split(/\r?\n/).forEach((theLine) => {
+        const enigmaSelection = theLine[0]
+        const turingSelection = theLine[2]
+
+        currentGame = {
+            id: lineCownt,
+            enigma:
+                "(" +
+                enigmaSelection +
+                ") " +
+                shotgunTranslator(enigmaSelection),
+            turing:
+                "(" +
+                turingSelection +
+                ") " +
+                shotgunTranslator(turingSelection),
+            winner: shotgunChickenDinner(enigmaSelection, turingSelection),
+            turingScore: shotgunScore(
+                enigmaSelection,
+                precogify(enigmaSelection!, turingSelection!, precog)
+            ),
+        }
+
+        turingTotalScore += currentGame.turingScore
+
+        theGames.push(currentGame)
+
+        lineCownt++
+    })
+
+    return turingTotalScore
+}
+
+function precogify(
+    enigmaSelection: string,
+    turingSelection: string,
+    precog: boolean = false
+) {
+    let precoggedSelection = turingSelection
+
+    if (precog) {
+        if (turingSelection === precogTie) {
+            precoggedSelection = enigmaSelection
+        }
+
+        if (turingSelection === precogWin) {
+            if (enigmaSelection === enigmaRock) {
+                precoggedSelection = turingPaper
+            }
+            if (enigmaSelection === enigmaPaper) {
+                precoggedSelection = turingScissors
+            }
+            if (enigmaSelection === enigmaScissors) {
+                precoggedSelection = turingRock
+            }
+        }
+
+        if (turingSelection === precogLose) {
+            if (enigmaSelection === enigmaRock) {
+                precoggedSelection = turingScissors
+            }
+            if (enigmaSelection === enigmaPaper) {
+                precoggedSelection = turingRock
+            }
+            if (enigmaSelection === enigmaScissors) {
+                precoggedSelection = turingPaper
+            }
+        }
+    }
+
+    return precoggedSelection
+}
+
+function shotgunTranslator(weaponOfChoice: string | undefined) {
+    if (weaponOfChoice === enigmaRock || weaponOfChoice === turingRock) {
+        return "rock"
+    } else if (
+        weaponOfChoice === enigmaPaper ||
+        weaponOfChoice === turingPaper
+    ) {
+        return "paper"
+    } else if (
+        weaponOfChoice === enigmaScissors ||
+        weaponOfChoice === turingScissors
+    ) {
+        return "scissors"
+    } else {
+        return "SHOTGUN"
+    }
+}
+
+function shotgunChickenDinner(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const enigmaSelectionTranslated = shotgunTranslator(enigmaSelection)
+    const turingSelectionTranslated = shotgunTranslator(turingSelection)
+
+    const enigmaRockTranslated = shotgunTranslator(enigmaRock)
+    const enigmaPaperTranslated = shotgunTranslator(enigmaPaper)
+    const enigmaScissorsTranslated = shotgunTranslator(enigmaScissors)
+    const turingRockTranslated = shotgunTranslator(turingRock)
+    const turingPaperTranslated = shotgunTranslator(turingPaper)
+    const turingScissorsTranslated = shotgunTranslator(turingScissors)
+
+    if (enigmaSelectionTranslated === turingSelectionTranslated) {
+        return "tie"
+    } else if (
+        (enigmaSelectionTranslated === enigmaRockTranslated &&
+            turingSelectionTranslated === turingPaperTranslated) ||
+        (enigmaSelectionTranslated === enigmaPaperTranslated &&
+            turingSelectionTranslated === turingScissorsTranslated) ||
+        (enigmaSelectionTranslated === enigmaScissorsTranslated &&
+            turingSelectionTranslated === turingRockTranslated)
+    ) {
+        return "turing"
+    } else if (
+        (enigmaSelectionTranslated === enigmaRockTranslated &&
+            turingSelectionTranslated === turingScissorsTranslated) ||
+        (enigmaSelectionTranslated === enigmaPaperTranslated &&
+            turingSelectionTranslated === turingRockTranslated) ||
+        (enigmaSelectionTranslated === enigmaScissorsTranslated &&
+            turingSelectionTranslated === turingPaperTranslated)
+    ) {
+        return "enigma"
+    } else {
+        return "SHOTGUN"
+    }
+}
+
+function shotgunScore(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const weaponScore = shotgunWeaponScore(turingSelection)
+
+    const gameScore = shotgunGameScore(enigmaSelection, turingSelection)
+
+    const totalScore = weaponScore + gameScore
+
+    return totalScore
+}
+
+function shotgunGameScore(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const shotgunGameResult = shotgunChickenDinner(
+        enigmaSelection,
+        turingSelection
+    )
+
+    if (shotgunGameResult === "turing") {
+        return scoreForWin
+    } else if (shotgunGameResult === "enigma") {
+        return scoreForLoss
+    } else if (shotgunGameResult === "tie") {
+        return scoreForTie
+    } else {
+        return 666
+    }
+}
+
+function shotgunWeaponScore(turingSelection: string | undefined) {
+    const turingSelectionTranslated = shotgunTranslator(turingSelection)
+
+    if (turingSelectionTranslated === "rock") {
+        return scoreForSelectingRock
+    } else if (turingSelectionTranslated === "paper") {
+        return scoreForSelectingPaper
+    } else if (turingSelectionTranslated === "scissors") {
+        return scoreForSelectingScissors
+    } else {
+        return 666
+    }
+}
+
+const turingTotalScoreTest = shotgunBobulator(dataTest, gamesTest, false)
+
+const turingTotalScoreOne = shotgunBobulator(dataProd, gamesOne, false)
+
+const turingTotalScoreTwo = shotgunBobulator(dataProd, gamesTwo, true)
+
+
+            `} />
+            </pre>
+        </section>
+
+        <h3 class="ml-8" id="video">Video</h3>
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                <iframe
+                    class="w-full md:h-96"
+                    src="https://www.youtube.com/embed/asdf"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
         </section>
     </main>
 </Layout>
