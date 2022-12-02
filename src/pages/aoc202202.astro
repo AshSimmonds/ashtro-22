@@ -1,27 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import fs from "node:fs/promises"
+// import fs from "node:fs/promises"
 import { Code } from "astro/components"
 
-const localDataUrl = new URL("./aoc/aoc202202.txt", import.meta.url)
-const localDataTestUrl = new URL(
-    "./aoc/aoc202202-testdata.txt",
-    import.meta.url
-)
+// const localDataUrl = new URL("./aoc/aoc202202.txt", import.meta.url)
+// const localDataTestUrl = new URL("./aoc/aoc202202-testdata.txt", import.meta.url)
 
-// const deployedDataUrl = 'https://g0.wtf/aoc/aoc202202.txt'
-// const deployedDataTestUrl = 'https://g0.wtf/aoc/aoc202202-testdata.txt'
+const deployedDataUrl = 'https://g0.wtf/aoc/aoc202202.txt'
+const deployedDataTestUrl = 'https://g0.wtf/aoc/aoc202202-testdata.txt'
 
 // LOCAL DATA
-const dataProd = await fs.readFile(localDataUrl, "utf-8")
-const dataTest = await fs.readFile(localDataTestUrl, "utf-8")
+// const dataProd = await fs.readFile(localDataUrl, "utf-8")
+// const dataTest = await fs.readFile(localDataTestUrl, "utf-8")
 
 // DEPLOYED DATA
-// const dataProd = await fetch(deployedDataUrl).then(res => res.text())
-// const dataTest = await fetch(deployedDataTestUrl).then(res => res.text())
+const dataProd = await fetch(deployedDataUrl).then(res => res.text())
+const dataTest = await fetch(deployedDataTestUrl).then(res => res.text())
 
-console.log(`dataProd.length:`, dataProd.length)
 console.log(`dataTest.length:`, dataTest.length)
+console.log(`dataProd.length:`, dataProd.length)
 
 const scoreForSelectingRock = 1
 const scoreForSelectingPaper = 2
