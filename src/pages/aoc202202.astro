@@ -1,0 +1,268 @@
+---
+import Layout from "../layouts/Layout.astro"
+import fs from "node:fs/promises"
+
+const localDataUrl = new URL("./aoc/aoc202202.txt", import.meta.url)
+const localDataTestUrl = new URL(
+    "./aoc/aoc202202-testdata.txt",
+    import.meta.url
+)
+
+// LOCAL DATA
+const dataProd = await fs.readFile(localDataUrl, "utf-8")
+const dataTest = await fs.readFile(localDataTestUrl, "utf-8")
+
+console.log(`dataProd.length:`, dataProd.length)
+console.log(`dataTest.length:`, dataTest.length)
+
+const scoreForSelectingRock = 1
+const scoreForSelectingPaper = 2
+const scoreForSelectingScissors = 3
+const scoreForWin = 6
+const scoreForLoss = 0
+const scoreForTie = 3
+
+const enigmaRock = "A"
+const enigmaPaper = "B"
+const enigmaScissors = "C"
+const turingRock = "X"
+const turingPaper = "Y"
+const turingScissors = "Z"
+
+let turingTotalScore = 0
+let enigmaTotalScore = 0
+
+let lineCownt = 0
+
+const games: any[] = []
+
+let currentGame: any = {
+    id: Number,
+    enigma: String,
+    turing: String,
+    winner: String,
+    turingScore: Number,
+    // enigmaScore: Number,
+}
+
+function shotgunBobulator(theData: string) {
+    theData.split(/\r?\n/).forEach((theLine) => {
+        // console.log(`theLine ${lineCownt}:`, theLine)
+
+        const enigmaSelection = theLine[0]
+        const turingSelection = theLine[2]
+
+        currentGame = {
+            id: lineCownt,
+            enigma:
+                "(" +
+                enigmaSelection +
+                ") " +
+                shotgunTranslator(enigmaSelection),
+            turing:
+                "(" +
+                turingSelection +
+                ") " +
+                shotgunTranslator(turingSelection),
+            winner: shotgunChickenDinner(enigmaSelection, turingSelection),
+            turingScore: shotgunScore(enigmaSelection, turingSelection),
+            // enigmaScore: shotgunScore(turingSelection, enigmaSelection),
+        }
+
+        // console.log(`currentGame:`, currentGame)
+
+        turingTotalScore += currentGame.turingScore
+        enigmaTotalScore += currentGame.enigmaScore
+
+        games.push(currentGame)
+
+        lineCownt++
+    })
+}
+
+function shotgunTranslator(weaponOfChoice: string | undefined) {
+    if (weaponOfChoice === enigmaRock || weaponOfChoice === turingRock) {
+        return "rock"
+    } else if (
+        weaponOfChoice === enigmaPaper ||
+        weaponOfChoice === turingPaper
+    ) {
+        return "paper"
+    } else if (
+        weaponOfChoice === enigmaScissors ||
+        weaponOfChoice === turingScissors
+    ) {
+        return "scissors"
+    } else {
+        return "SHOTGUN"
+    }
+}
+
+function shotgunChickenDinner(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const enigmaSelectionTranslated = shotgunTranslator(enigmaSelection)
+    const turingSelectionTranslated = shotgunTranslator(turingSelection)
+
+    const enigmaRockTranslated = shotgunTranslator(enigmaRock)
+    const enigmaPaperTranslated = shotgunTranslator(enigmaPaper)
+    const enigmaScissorsTranslated = shotgunTranslator(enigmaScissors)
+    const turingRockTranslated = shotgunTranslator(turingRock)
+    const turingPaperTranslated = shotgunTranslator(turingPaper)
+    const turingScissorsTranslated = shotgunTranslator(turingScissors)
+
+    if (enigmaSelectionTranslated === turingSelectionTranslated) {
+        return "tie"
+    } else if (
+        (enigmaSelectionTranslated === enigmaRockTranslated &&
+            turingSelectionTranslated === turingPaperTranslated) ||
+        (enigmaSelectionTranslated === enigmaPaperTranslated &&
+            turingSelectionTranslated === turingScissorsTranslated) ||
+        (enigmaSelectionTranslated === enigmaScissorsTranslated &&
+            turingSelectionTranslated === turingRockTranslated)
+    ) {
+        return "turing"
+    } else if (
+        (enigmaSelectionTranslated === enigmaRockTranslated &&
+            turingSelectionTranslated === turingScissorsTranslated) ||
+        (enigmaSelectionTranslated === enigmaPaperTranslated &&
+            turingSelectionTranslated === turingRockTranslated) ||
+        (enigmaSelectionTranslated === enigmaScissorsTranslated &&
+            turingSelectionTranslated === turingPaperTranslated)
+    ) {
+        return "enigma"
+    } else {
+        return "SHOTGUN"
+    }
+}
+
+function shotgunScore(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const weaponScore = shotgunWeaponScore(enigmaSelection, turingSelection)
+    // console.log(`weaponScore:`, weaponScore)
+
+    const gameScore = shotgunGameScore(enigmaSelection, turingSelection)
+    // console.log(`gameScore:`, gameScore)
+
+    const totalScore = weaponScore + gameScore
+
+    // console.log(`totalScore:`, totalScore)
+
+    return totalScore
+}
+
+function shotgunGameScore(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const shotgunGameResult = shotgunChickenDinner(
+        enigmaSelection,
+        turingSelection
+    )
+
+    if (shotgunGameResult === "turing") {
+        return scoreForWin
+    } else if (shotgunGameResult === "enigma") {
+        return scoreForLoss
+    } else if (shotgunGameResult === "tie") {
+        return scoreForTie
+    } else {
+        return 666
+    }
+}
+
+function shotgunWeaponScore(
+    enigmaSelection: string | undefined,
+    turingSelection: string | undefined
+) {
+    const enigmaSelectionTranslated = shotgunTranslator(enigmaSelection)
+    const turingSelectionTranslated = shotgunTranslator(turingSelection)
+
+    // console.log(`enigmaSelectionTranslated:`, enigmaSelectionTranslated)
+
+    if (turingSelectionTranslated === "rock") {
+        return scoreForSelectingRock
+    } else if (turingSelectionTranslated === "paper") {
+        return scoreForSelectingPaper
+    } else if (turingSelectionTranslated === "scissors") {
+        return scoreForSelectingScissors
+    } else {
+        return 666
+    }
+}
+
+shotgunBobulator(dataProd)
+---
+
+<Layout title="Advent of Code 2022 - 02">
+    <main>
+        <h1>Advent of Code 2022 - 02</h1>
+
+        <h2 id="resources">Resources</h2>
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                <p>
+                    <a href="https://adventofcode.com/2022/day/2">Day 2</a>
+                </p>
+                <p>
+                    Rock paper scissors simulator.<br />
+                    <br />
+                    Score table for selection: <br />
+                    <ul>
+                        <li>{scoreForSelectingRock} - Rock</li>
+                        <li>{scoreForSelectingPaper} - Paper</li>
+                        <li>{scoreForSelectingScissors} - Scissors</li>
+                    </ul>
+
+                    Score table for outcome: <br />
+                    <ul>
+                        <li>{scoreForWin} - Win</li>
+                        <li>{scoreForLoss} - Loss</li>
+                        <li>{scoreForTie} - Tie</li>
+                    </ul>
+                </p>
+                <h4>Example data</h4>
+                <pre>
+A Y
+B X
+C Z
+                </pre>
+
+                <p>
+                    Full payload: <a href="/aoc/aoc202202.txt">aoc202202.txt</a>
+                </p>
+            </div>
+        </section>
+
+        <h2>Answers</h2>
+
+        <h3 class="ml-8" id="part1">Part One</h3>
+
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                <h4>TEST DATA (hidden)</h4>
+                <pre class="overflow-scroll hidden">
+{JSON.stringify(games, null, 4)}
+                </pre>
+
+                <h4>RESULT</h4>
+
+                <div class="alert alert-success">
+                    PLAYER SCORE: {turingTotalScore}
+                </div>
+                <!-- <div class="alert alert-warning">
+                    OPPONENT SCORE: {enigmaTotalScore}
+                </div> -->
+
+            </div>
+        </section>
+
+        <h2 id="thoughts" class="mt-48">final thoughts</h2>
+        <section class="mt-5">
+            <div class="hexed p-60" data-houdini-hud="both">asdf</div>
+        </section>
+    </main>
+</Layout>
