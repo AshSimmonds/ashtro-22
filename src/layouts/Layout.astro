@@ -1,209 +1,274 @@
 ---
 export interface Props {
-	title: string;
+    title: string
 }
 
-const { title } = Astro.props as Props;
+const { title } = Astro.props as Props
 ---
 
 <!DOCTYPE html>
 <html lang="en" data-theme="ashdark">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<!-- <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet" /> -->
 
-		<link
-			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani&family=Silkscreen&display=swap"
-			rel="stylesheet"
-		/>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani&family=Silkscreen&display=swap"
+            rel="stylesheet"
+        />
 
-		<style is:global>
-			body, .prose body, .prose {
-				font-family: "Rajdhani", sans-serif;
-				font-size: 1.20rem;
-			}
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6 {
-				font-family: "Press Start 2P";
-				text-shadow: 0 0 8px #14ff14;
-				/* font-size: x-small; */
-			}
+        <style is:global>
+            body,
+            .prose body,
+            .prose {
+                font-family: "Rajdhani", sans-serif;
+                font-size: 1.2rem;
+            }
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-family: "Press Start 2P";
+                text-shadow: 0 0 8px #14ff14;
+                /* font-size: x-small; */
+            }
 
-			.prose h1, h1 {
-				font-size: 1.25rem;
-				margin-top: 0rem;
-			}
+            .prose h1,
+            h1 {
+                font-size: 1.25rem;
+                margin-top: 0rem;
+            }
 
-			.prose h2, h2 {
-				font-size: 1.15rem;
+            .prose h2,
+            h2 {
+                font-size: 1.15rem;
                 margin-top: 2.5rem;
-			}
-			.prose h3, h3 {
-				font-size: 1.0rem;
+            }
+            .prose h3,
+            h3 {
+                font-size: 1rem;
                 margin-top: 1.5rem;
-			}
-			.prose h4, h4 {
-				font-size: 0.8rem;
+            }
+            .prose h4,
+            h4 {
+                font-size: 0.8rem;
                 margin-top: 0.5rem;
-			}
-			.prose h5, h5 {
-				font-size: 1rem;
+            }
+            .prose h5,
+            h5 {
+                font-size: 1rem;
                 margin-top: 0.25rem;
-			}
-			.prose h6, h6 {
-				font-size: 1rem;
-			}
+            }
+            .prose h6,
+            h6 {
+                font-size: 1rem;
+            }
 
-			.alert,
-			.stats {
-				font-family: "Silkscreen", monospace;
-			}
+            .alert,
+            .stats {
+                font-family: "Silkscreen", monospace;
+            }
 
-			pre,
-			code, .prose pre, .prose code {
-				font-family: "Press Start 2P", monospace;
-				font-size: 0.75rem;
-				/* font-family: "OCR A", monospace; */
-				/* font-family: "Space Mono", monospace; */
-			}
+            pre,
+            code,
+            .prose pre,
+            .prose code {
+                font-family: "Press Start 2P", monospace;
+                font-size: 0.75rem;
+                /* font-family: "OCR A", monospace; */
+                /* font-family: "Space Mono", monospace; */
+            }
 
-			p {
-				text-align: justify;
-			}
+            p {
+                text-align: justify;
+            }
 
-			body {
-				height: 100vh;
-			}
+            body {
+                height: 100vh;
+            }
 
-			.gradient-background {
-				background: linear-gradient(
-					69deg,
-					#000044,
-					#000011,
-					#001100,
-					#004400
-				);
-				background-size: 180% 180%;
-				animation: gradient-animation 10s ease infinite;
-			}
+            .gradient-background {
+                background: linear-gradient(
+                    69deg,
+                    #000044,
+                    #000011,
+                    #001100,
+                    #004400
+                );
+                background-size: 180% 180%;
+                animation: gradient-animation 10s ease infinite;
+            }
 
-			@keyframes gradient-animation {
-				0% {
-					background-position: 0% 50%;
-				}
-				50% {
-					background-position: 100% 50%;
-				}
-				100% {
-					background-position: 0% 50%;
-				}
-			}
+            @keyframes gradient-animation {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
 
-			.btn {
-				text-decoration: none;
-			}
+            .btn {
+                text-decoration: none;
+            }
 
+            .normieCode {
+                font-family: "courier new", monospace;
+            }
 
-			.normieCode {
-				font-family: "courier new", monospace;
-			}
+            .none {
+                all: initial !important;
+                color: #aaaaaa !important;
+            }
 
-			.none {
-				all: initial !important;
-				color: #aaaaaa !important;
+            .prose {
+                max-width: 75ch;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-			}
+            .prose img {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
 
-			.prose {
-				max-width: 75ch;
-				margin-left: auto;
-				margin-right: auto;
-			}
+            .prose figure {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
 
-			.prose img {
-				margin-top: 0;
-				margin-bottom: 0;
-			}
+            .prose h2.card-title {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
 
-			.prose figure {
-				margin-top: 0;
-				margin-bottom: 0;
-			}
+            #announc3ment {
+                --aug-clip-tl1: initial;
+                --aug-round-tr1: initial;
+                --aug-clip-br1: initial;
+                --aug-round-bl1: initial;
+                --aug-border: initial;
+                --aug-inlay: initial;
+                --aug-border-all: 1px;
+                --aug-inlay-all: 2px;
+                --aug-border-bg: lime;
+                --aug-inlay-bg: lime;
+                --aug-inlay-opacity: 0.06;
+                --aug-tl1: 40px;
+                --aug-br1: 40px;
+                --aug-tr1: 10px;
+                --aug-bl1: 10px;
+                color: #cccccc;
+                text-align: center;
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                max-width: 66%;
+                margin: 0.25rem auto;
+                font-size: 0.9rem;
+            }
 
-			.prose h2.card-title {
-				margin-top: 0;
-				margin-bottom: 0;
-			}
+            #announc3ment:hover {
+                --aug-inlay-opacity: 0.1;
+            }
 
-			#announc3ment {
-				--aug-clip-tl1: initial;
-				--aug-round-tr1: initial;
-				--aug-clip-br1: initial;
-				--aug-round-bl1: initial;
-				--aug-border: initial;
-				--aug-inlay: initial;
-				--aug-border-all: 1px;
-				--aug-inlay-all: 2px;
-				--aug-border-bg: lime;
-				--aug-inlay-bg: lime;
-				--aug-inlay-opacity: 0.06;
-				--aug-tl1: 40px;
-				--aug-br1: 40px;
-				--aug-tr1: 10px;
-				--aug-bl1: 10px;
-				color: #cccccc;
-				text-align: center;
-				padding-left: 30px;
-				padding-right: 30px;
-				padding-top: 20px;
-				padding-bottom: 20px;
-				max-width: 66%;
-				margin: 0.25rem auto;
-				font-size: 0.9rem;
-			}
+            #announc3ment::before {
+                transition: opacity 1s ease-in;
+            }
 
-			#announc3ment:hover {
-				--aug-inlay-opacity: 0.1;
-			}
+            #announc3ment:hover::before {
+                transition: opacity 1s ease-in 3s;
+            }
 
-			#announc3ment::before {
-				transition: opacity 1s ease-in;
-			}
+            #announc3ment b {
+                color: white;
+                font-size: 1rem;
+            }
 
-			#announc3ment:hover::before {
-				transition: opacity 1s ease-in 3s;
-			}
+            .prose h2,
+            h2 {
+                margin-top: 4.5rem !important;
+            }
 
-			#announc3ment b {
-				color: white;
-				font-size: 1rem;
-			}
-		</style>
+            .prose h3,
+            h3 {
+                margin-top: 3.5rem !important;
+            }
+            .hh01 {
+                --hud-tl1: clip;
+                --hud-tl1-size: 2.5rem;
 
-		<title>{title}</title>
-	</head>
-	<body class="prose">
+                --hud-br1: clip;
+                --hud-br1-size: 2.5rem;
 
+                --hud-inlay-bg: #b2a5fd;
+                /* --hud-inlay-opacity: 0.33; */
+
+                padding: 1.5rem;
+                margin: auto;
+                max-width: 66%;
+            }
+
+            .hexed {
+                --hud-inlay-bg: #0bb2b0;
+                --hud-inlay-opacity: 0.1;
+                --hud-bl-inset: 0.75rem;
+                --hud-tr1: clip;
+                --hud-tr1-size: 3rem;
+                --hud-l2: clip;
+                --hud-l1: clip;
+                --hud-bl2: round;
+                --hud-bl1: clip;
+                --hud-l2-size: 1rem;
+                --hud-l2-inset-y: 25%;
+                --hud-l1-size: 0.25rem;
+                --hud-bl2-size: 1rem;
+                --hud-bl1-size: 0.5rem;
+                --hud-b1: clip;
+                --hud-b1-size: 1rem;
+                --hud-b1-inset-x: 33%;
+                --hud-b2: clip;
+                --hud-b2-size: 0.25rem;
+                --hud-br1: round;
+                --hud-br1-size: 1rem;
+                width: 100%;
+                height: max(50%, 150px);
+                --hud-inlay-all: 7px;
+                --hud-border-all: 2px;
+                --hud-border-opacity: 0.75;
+                --hud-border-bg: #0bb2b0;
+
+                padding: 3rem;
+                margin: auto;
+                max-width: 80%;
+            }
+        </style>
+
+        <title>{title}</title>
+
+        <script src="https://unpkg.com/houdini-hud@0.0.1/index.js"></script>
+
+    </head>
+    <body class="prose">
         <a href="/">/</a>
 
-		<slot />
-
-
-
-	</body>
+        <slot />
+    </body>
 </html>
