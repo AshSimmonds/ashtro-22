@@ -1,0 +1,128 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="hyperplexed award winning something">
+    <main>
+        <h1>hyperplexed award winning something</h1>
+
+        <section class="mt-5">
+            <div class="hexed" data-houdini-hud="both">
+                https://www.youtube.com/watch?v=PkADl0HubMY
+            </div>
+        </section>
+
+        <section class="overflow-hidden">
+            <div
+                id="image-track"
+                data-mouse-down-at="0"
+                data-prev-percentage="0"
+                class="border-2 border-red-400 w-full h-full"
+            >
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?robot"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?girl"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?jet"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?hacker"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?donkey"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?fire"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="image"
+                    src="https://source.unsplash.com/random/900×700/?steak"
+                    alt=""
+                    draggable="false"
+                />
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    #image-track > .image {
+        width: 40vmin;
+        height: 56vmin;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    #image-track {
+        display: flex;
+        gap: 4vmin;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(0%, -50%);
+    }
+</style>
+
+<script>
+    const track = document.getElementById("image-track")
+
+    window.onmousedown = (e) => {
+        track!.dataset.mouseDownAt = e.clientX.toString()
+    }
+
+    window.onmousemove = (e) => {
+        if (track!.dataset.mouseDownAt === "0") return
+
+        const mouseDelta = parseFloat(track!.dataset!.mouseDownAt!) - e.clientX,
+            maxDelta = window.innerWidth / 2
+
+        const percentage = (mouseDelta / maxDelta) * -100,
+            nextPercentage =
+                parseFloat(track!.dataset!.prevPercentage!) + percentage
+
+        Math.min(nextPercentage, 0)
+        Math.max(nextPercentage, -100)
+
+        track!.dataset.percentage = nextPercentage.toString()
+
+        // track!.style.transform = `translate(${nextPercentage}%, -50%)`
+
+        track!.animate(
+            {
+                transform: `translate(${nextPercentage}%, -50%)`,
+            },
+            { duration: 1200, fill: "forwards" }
+        )
+
+        for (const image of track!.getElementsByClassName("image")) {
+            image.animate({
+                objectPosition: `${100 + nextPercentage}% center`}, { duration: 1200, fill: "forwards" })
+        }
+    }
+
+    window.onmouseup = () => {
+        track!.dataset.mouseDownAt = "0"
+        track!.dataset.prevPercentage = track!.dataset.percentage
+    }
+</script>
