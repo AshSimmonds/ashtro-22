@@ -3,14 +3,13 @@ import Layout from "../layouts/Layout.astro"
 import SvelteCounter from "../components/XStateCounterSvelte.svelte"
 import PreactCounter from "../components/XStateCounterPreact"
 import VueCounter from "../components/XStateCounterVue.vue"
+import SolidCounter from "../components/XStateCounterSolid"
 ---
 
 <Layout title="xstate machine in Astro using Svelte and Preact and Vue">
     <h1>xstate machine in Astro using Svelte and Preact and Vue</h1>
 
-    <div>
-        All components share the same xstate finite state machine.
-    </div>
+    <div>All components share the same xstate finite state machine.</div>
 
     <hr />
     <div class="grid gap-8 grid-cols-1 md:grid-cols-3 place-items-center">
@@ -27,6 +26,11 @@ import VueCounter from "../components/XStateCounterVue.vue"
         <div>
             <h2>Vue</h2>
             <VueCounter client:load />
+        </div>
+
+        <div>
+            <h2 class="inlineastrotest">Solid</h2>
+            <SolidCounter client:load />
         </div>
     </div>
 
@@ -46,3 +50,11 @@ import VueCounter from "../components/XStateCounterVue.vue"
 
     <img src="/xstate-counter-01.png" alt="astro-svelte" />
 </Layout>
+
+
+
+<style>
+    .inlineastrotest {
+        font-family: fantasy;
+    }
+</style>
