@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro"
+import PokemonSolid from "../components/XStatePokemonSolid"
+import XStateMindsetCheatSheet from "../components/XStateMindsetCheatSheet.md"
+---
+
+<Layout title="XState machine in Astro and Solid">
+    <h1>XState machine in Astro and SolidJS</h1>
+
+    <div>
+        Simple proof-of-concept of an XState finite state machine in SolidJS and
+        Astro.
+    </div>
+
+    <hr />
+
+    <div class="flex flex-col items-center">
+        <PokemonSolid client:load />
+    </div>
+
+    <hr />
+
+    <XStateMindsetCheatSheet />
+</Layout>
