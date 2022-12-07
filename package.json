@@ -28,7 +28,7 @@
     "vue": "^3.2.41"
   },
   "dependencies": {
-    "@astrojs/solid-js": "^1.2.1",
+    "@astrojs/solid-js": "^1.2.3",
     "@example/basics": "file:",
     "@julian_cataldo/astro-diagram": "^0.11.3",
     "@rive-app/canvas": "^1.0.89",
@@ -38,6 +38,7 @@
     "daisyui": "^2.24.0",
     "flamethrower-router": "^0.0.0-meme.12",
     "headless-mermaid": "^1.3.0",
+    "solid-js": "^1.6.3",
     "xstate": "^4.33.5"
   }
 }
