@@ -39,6 +39,9 @@ const pokemonMachine =
                     fetch: {
                         target: 'fetching',
                     },
+                    resetFetchCount: {
+                        actions: 'resetFetchCount',
+                    },
                 },
             },
             fetching: {
@@ -57,7 +60,6 @@ const pokemonMachine =
             },
             fucked: {
                 entry: 'fuckedEntry',
-                type: 'final',
                 on: {
                     enable: 'idle',
                 },
@@ -79,6 +81,10 @@ const pokemonMachine =
                 context.fetchCount++
                 context.state = 'fetching'
                 console.log(`XStatePokemonSolid.tsx fetchingEntry: ${event.type}`)
+            },
+            resetFetchCount: (context, event) => {
+                context.fetchCount = 0
+                console.log(`XStatePokemonSolid.tsx resetFetchCount: ${event.type}`)
             },
             fuckedEntry: (context, event) => {
                 context.state = 'fucked'
@@ -218,7 +224,7 @@ export default function PokemonSolid() {
                 </li>
 
                 <li>
-                    fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount}</span>
+                    fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount} / {maxFetches}</span> <button onclick={() => pokemonMachineService.send("resetFetchCount")} disabled={!pokemonState().can("resetFetchCount")} class="btn btn-accent btn-outline" >(reset)</button>
                 </li>
 
                 <li>
