@@ -16,6 +16,7 @@ const initialContext = {
     updates: 0,
     updated: new Date(),
     idleCount: 0,
+    totalFetchCount: 0,
     fetchCount: 0,
     state: 'off',
 }
@@ -79,6 +80,7 @@ const pokemonMachine =
             },
             fetchingEntry: (context, event) => {
                 context.fetchCount++
+                context.totalFetchCount++
                 context.state = 'fetching'
                 console.log(`XStatePokemonSolid.tsx fetchingEntry: ${event.type}`)
             },
@@ -174,7 +176,7 @@ export default function PokemonSolid() {
         console.log(`XStatePokemonSolid.tsx PokemonSolid() intervalCownt: ${intervalCownt}`)
         // console.log(`intervalCownt: ${}`)
 
-        if (autofetch()) {
+        if (autofetch() && pokemonState().can('fetch')) {
             pokemonMachineService.send('fetch')
         }
 
@@ -199,18 +201,9 @@ export default function PokemonSolid() {
     return (
 
         <div>
-            <Show when={pokemonState().value === 'off'}>
-                <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-accent">Start</button>
-            </Show>
-            <Show when={pokemonState().value === 'idle'}>
-                <button onclick={() => pokemonMachineService.send("fetch")} class="btn btn-success">Fetch</button>
-            </Show>
-            <Show when={pokemonState().value === 'fetching' || pokemonState().value === 'autoFetching'}>
-                <button onclick={() => pokemonMachineService.send("cancel")} class="btn btn-warning">cancel</button>
-            </Show>
-            <Show when={pokemonState().value === 'fucked'}>
-                <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-error">Fix</button>
-            </Show>
+            <button onclick={() => pokemonMachineService.send("enable")} disabled={!pokemonState().can('enable')} class="btn btn-accent">Enable</button>
+            <button onclick={() => pokemonMachineService.send("fetch")} disabled={!pokemonState().can('fetch')} class="btn btn-success">Fetch</button>
+            <button onclick={() => pokemonMachineService.send("cancel")} disabled={!pokemonState().can('cancel')} class="btn btn-warning">Cancel</button>
 
             <input type="checkbox" checked={autofetch()} onclick={() => setAutofetch(!autofetch())} /> autofetch
 
@@ -224,8 +217,10 @@ export default function PokemonSolid() {
                 </li>
 
                 <li>
-                    fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount} / {maxFetches}</span> <button onclick={() => pokemonMachineService.send("resetFetchCount")} disabled={!pokemonState().can("resetFetchCount")} class="btn btn-accent btn-outline" >(reset)</button>
+                    current fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount} / {maxFetches}</span> <button onclick={() => pokemonMachineService.send("resetFetchCount")} disabled={!pokemonState().can("resetFetchCount")} class="btn btn-accent btn-outline" >(reset)</button>
                 </li>
+
+                <li>total fetches: <span class="badge text-xl">{pokemonState().context.totalFetchCount}</span></li>
 
                 <li>
                     updated: <span class="badge text-xl">{pokemonState().context.updated.toLocaleDateString('en-AU', {
