@@ -124,9 +124,9 @@ export default function PokemonSolid() {
                     })}</span>
                 </li>
 
-                <li>
-                    <Show when={pokemonState().context.data.name}>
-                        data: <span class="badge text-xl">{JSON.stringify(pokemonState().context.data.effect_entries[0].effect, null, 4)}</span>
+                <li>data:
+                    <Show when={pokemonState().context.data.effect_entries?.length > 0}>
+                        <span class="badge text-xl">{JSON.stringify(pokemonState().context.data.effect_entries[0].effect, null, 4)}</span>
                     </Show>
                 </li>
             </ul>
