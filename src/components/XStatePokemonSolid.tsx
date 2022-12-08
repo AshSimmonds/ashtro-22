@@ -19,12 +19,14 @@ const initialContext = {
     totalFetchCount: 0,
     fetchCount: 0,
     state: 'off',
-    autofetch: true,
+    autofetch: false,
 }
 
 const pokemonMachine =
-    /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBCt8O3k5J3lZRXlJRVF9IwRZZIBOLXkS8S01VS11Nw8MbDx8QJDQrlwoUgg8MHxOgDcm1qCwgBFKHkoIwRjeflxBRMVVKQVq6RLJUTL5eS0CxElZaRTHbZPKhQrFBuim71H2zu6wACd31Hf8ZFopojfLDPCZTGasOacBbxUCJexMFI6JiqU72SpMPSGRDwqSqJglRSKaz7eT41T3TzNAhEACuwUwEHIVDojAhUXmcSWCWOWkU+B0jlkTEUakkTEOWIQJwR+1E0lUohyVkc8jc7hAuFQEDgkK8MIesUWyxMogRqhKGOk2hKslk2wORwQphRKRK0gqVkkBPldQpjxaxCIkMN+sSpvM9iJeNJJRKpOkjuMvPwpsUccq1hsmmkfr1Pj8YGD0K5sOxJSkWnd5UJ8lE1VOjvkazKGOU0nbKhOVtzVJBHS6Rc5xqdp3w5st1tt9olhStZ0kFQqTFTzlU2h7T1p9Mgg6N3IQ1lkUmkhIJTbqB0kjsU5X5KmqdVqJ7KapcQA */
-    createMachine({
+    /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTteXNVdMUUzSYNgsMTRS00kpLREsl5Sy1FaTX5Fui2706-MFIeVCgoegBBMffAkLhVgzThzeKgRI3CTSRSiXJOBx2OyFEyyWSSCqqNaiaz2eRaJiyVT3TztHwvUhCWA8Sg8MD4ShEOndAAUGw2AEpSKSnl1GMCorM4gsEogSooKrJpPkFHItJJlKoUcUSrJ8PJaqoZNISs5JGjXO4Hl4OgCwlxcFBSBA8PSLQA3Nr4M2hAAitMo00FoOFi1RJRWqga6PU9VUDmV10DskJQdq0ssRJJj1NQ1CFqtYG63VQ3XwyFotKIuawzrT7ppXo4sXmfoQ9mk+FUuouklq8hjZVEkfyTZjpSY6lO8ixxKNPNNY2CmAg5CodH5kWrYJFEMQ8jk+ADyy1eRUSr2KvKlWqok0dWlOskbiNuFQEDgIJNq4eNfBwhMTQlQY7amUI4jQ9jGqNULhHM4mEqeRIPRZNn0IEgQTfF9Ejhcx7GuOpoOOaDpGVYwrnwOFFADE5rBsTRpDgslnnoJCVzrHUpDyfElEUC55SlZURy3AlZGUS8VH1JpqKeF0M3o31RSSKUmzKfj2IVRR9RkbtD3sVJTmcWFRCuGMFVEydp0gSTa2ktQMVIkMmDhGFFD0Q9bCI0i8jyDJzhvFwgA */
+    
+/** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTjasUpRWk66qZVEq1VUUlCk0UtNJKS0RLJeUstddUFFui2706-MFIeVCgoegBBMZfQIhcKsGacObxUCJDYSaSKUS5JwOOx2I5JE5nC46EqyeF3SxPTztHzvUhCWA8Sg8MD4ShEGndAAUilZigAlKRia8uowwVFZnEFglECVVkw8fkFHItJJlKp0aVZPh5LVVDJpLtZbInESXh1gWEuLgoKQIHhacaAG5tfCG0IAEWplGmAohQsWJlK8nwqgasjUynkqgc6PWPoeEr9tWk1geqj1XgNQ1CxtNYG63VQ3XwyFo1KI2awdpTTqpro4sXmnoQ9mkvt2N0ktXkskqTFEYfyvrbpW2CJKwdUCfczyTBCIY2CmAg5CodD5kUrkOF0MQ8jk+EH2mD2mqakVZQqVQ7mk2saublHuFQEDg4PH4KrUOEJilaw2qO2u32h0MXoeY98lxJhtgaTRExJQgSCfFca0Rcx7HuepKkHNF-ySO58ERRRBwuawbE0aRIJ5d5YI9EVaxKKQ8nkLQlEUG5tWkdFgy3LQJWUWN90kPFJBI5MQTTcjq0o0x6x2TjGLlRReJkTsMPsVJLmcBFRDuNs5QEicpxnESX0SNRJC3VUAzqRF4UUPQMNsbC8LyPIMmuK8XCAA */
+createMachine({
         id: 'pokemon',
         initial: 'off',
         predictableActionArguments: true,
@@ -46,6 +48,12 @@ const pokemonMachine =
                     },
                     toggleAutofetch: {
                         actions: 'toggleAutofetch',
+                    },
+                },
+                after: {
+                    [autofetchDelay]: {
+                        target: 'fetching',
+                        cond: (context) => context.autofetch,
                     },
                 },
             },
@@ -172,28 +180,7 @@ pokemonMachineService.onDone((theDone) => {
 })
 
 
-
-
-
 export default function PokemonSolid() {
-
-
-    const intervalCownt = setInterval(() => {
-
-        console.log(`XStatePokemonSolid.tsx PokemonSolid() intervalCownt: ${intervalCownt}`)
-        // console.log(`intervalCownt: ${}`)
-
-        if (pokemonState().context.autofetch && pokemonState().can('fetch')) {
-            pokemonMachineService.send('fetch')
-        }
-
-        if (pokemonState().context.fetchCount >= maxFetches) {
-            clearInterval(intervalCownt)
-            pokemonState().context.autofetch = false
-        }
-
-    }, autofetchDelay)
-
 
 
 
