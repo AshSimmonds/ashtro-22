@@ -19,6 +19,7 @@ const initialContext = {
     totalFetchCount: 0,
     fetchCount: 0,
     state: 'off',
+    autofetch: true,
 }
 
 const pokemonMachine =
@@ -42,6 +43,9 @@ const pokemonMachine =
                     },
                     resetFetchCount: {
                         actions: 'resetFetchCount',
+                    },
+                    toggleAutofetch: {
+                        actions: 'toggleAutofetch',
                     },
                 },
             },
@@ -87,6 +91,12 @@ const pokemonMachine =
             resetFetchCount: (context, event) => {
                 context.fetchCount = 0
                 console.log(`XStatePokemonSolid.tsx resetFetchCount: ${event.type}`)
+            },
+            toggleAutofetch: (context, event) => {
+                console.log(`XStatePokemonSolid.tsx toggleAutofetch BEFORE: ${context.autofetch}`)
+                context.autofetch = !context.autofetch
+                console.log(`XStatePokemonSolid.tsx toggleAutofetch AFTER: ${context.autofetch}`)
+                console.log(`XStatePokemonSolid.tsx toggleAutofetch: ${JSON.stringify(event, null, 4)}`)
             },
             fuckedEntry: (context, event) => {
                 context.state = 'fucked'
@@ -164,9 +174,6 @@ pokemonMachineService.onDone((theDone) => {
 
 
 
-const [autofetch, setAutofetch] = createSignal(true)
-
-
 
 export default function PokemonSolid() {
 
@@ -176,13 +183,13 @@ export default function PokemonSolid() {
         console.log(`XStatePokemonSolid.tsx PokemonSolid() intervalCownt: ${intervalCownt}`)
         // console.log(`intervalCownt: ${}`)
 
-        if (autofetch() && pokemonState().can('fetch')) {
+        if (pokemonState().context.autofetch && pokemonState().can('fetch')) {
             pokemonMachineService.send('fetch')
         }
 
         if (pokemonState().context.fetchCount >= maxFetches) {
             clearInterval(intervalCownt)
-            setAutofetch(false)
+            pokemonState().context.autofetch = false
         }
 
     }, autofetchDelay)
@@ -205,7 +212,6 @@ export default function PokemonSolid() {
             <button onclick={() => pokemonMachineService.send("fetch")} disabled={!pokemonState().can('fetch')} class="btn btn-success">Fetch</button>
             <button onclick={() => pokemonMachineService.send("cancel")} disabled={!pokemonState().can('cancel')} class="btn btn-warning">Cancel</button>
 
-            <input type="checkbox" checked={autofetch()} onclick={() => setAutofetch(!autofetch())} /> autofetch
 
             <ul>
                 <li>
@@ -213,11 +219,17 @@ export default function PokemonSolid() {
                 </li>
 
                 <li>
+                    Auto-fetch: <span class="badge text-xl">{pokemonState().context.autofetch.toString()}</span>
+                    <button onclick={() => pokemonMachineService.send("toggleAutofetch")} disabled={!pokemonState().can("toggleAutofetch")} class="btn btn-accent btn-outline" >toggle</button>
+                </li>
+
+                <li>
                     idleCount: <span class="badge text-xl">{pokemonState().context.idleCount}</span>
                 </li>
 
                 <li>
-                    current fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount} / {maxFetches}</span> <button onclick={() => pokemonMachineService.send("resetFetchCount")} disabled={!pokemonState().can("resetFetchCount")} class="btn btn-accent btn-outline" >(reset)</button>
+                    current fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount} / {maxFetches}</span>
+                    <button onclick={() => pokemonMachineService.send("resetFetchCount")} disabled={!pokemonState().can("resetFetchCount")} class="btn btn-accent btn-outline" >reset</button>
                 </li>
 
                 <li>total fetches: <span class="badge text-xl">{pokemonState().context.totalFetchCount}</span></li>
