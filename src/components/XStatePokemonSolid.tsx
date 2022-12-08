@@ -23,10 +23,9 @@ const initialContext = {
 }
 
 const pokemonMachine =
-    /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTteXNVdMUUzSYNgsMTRS00kpLREsl5Sy1FaTX5Fui2706-MFIeVCgoegBBMffAkLhVgzThzeKgRI3CTSRSiXJOBx2OyFEyyWSSCqqNaiaz2eRaJiyVT3TztHwvUhCWA8Sg8MD4ShEOndAAUGw2AEpSKSnl1GMCorM4gsEogSooKrJpPkFHItJJlKoUcUSrJ8PJaqoZNISs5JGjXO4Hl4OgCwlxcFBSBA8PSLQA3Nr4M2hAAitMo00FoOFi1RJRWqga6PU9VUDmV10DskJQdq0ssRJJj1NQ1CFqtYG63VQ3XwyFotKIuawzrT7ppXo4sXmfoQ9mk+FUuouklq8hjZVEkfyTZjpSY6lO8ixxKNPNNY2CmAg5CodH5kWrYJFEMQ8jk+ADyy1eRUSr2KvKlWqok0dWlOskbiNuFQEDgIJNq4eNfBwhMTQlQY7amUI4jQ9jGqNULhHM4mEqeRIPRZNn0IEgQTfF9Ejhcx7GuOpoOOaDpGVYwrnwOFFADE5rBsTRpDgslnnoJCVzrHUpDyfElEUC55SlZURy3AlZGUS8VH1JpqKeF0M3o31RSSKUmzKfj2IVRR9RkbtD3sVJTmcWFRCuGMFVEydp0gSTa2ktQMVIkMmDhGFFD0Q9bCI0i8jyDJzhvFwgA */
-    
-/** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTjasUpRWk66qZVEq1VUUlCk0UtNJKS0RLJeUstddUFFui2706-MFIeVCgoegBBMZfQIhcKsGacObxUCJDYSaSKUS5JwOOx2I5JE5nC46EqyeF3SxPTztHzvUhCWA8Sg8MD4ShEGndAAUilZigAlKRia8uowwVFZnEFglECVVkw8fkFHItJJlKp0aVZPh5LVVDJpLtZbInESXh1gWEuLgoKQIHhacaAG5tfCG0IAEWplGmAohQsWJlK8nwqgasjUynkqgc6PWPoeEr9tWk1geqj1XgNQ1CxtNYG63VQ3XwyFo1KI2awdpTTqpro4sXmnoQ9mkvt2N0ktXkskqTFEYfyvrbpW2CJKwdUCfczyTBCIY2CmAg5CodD5kUrkOF0MQ8jk+EH2mD2mqakVZQqVQ7mk2saublHuFQEDg4PH4KrUOEJilaw2qO2u32h0MXoeY98lxJhtgaTRExJQgSCfFca0Rcx7HuepKkHNF-ySO58ERRRBwuawbE0aRIJ5d5YI9EVaxKKQ8nkLQlEUG5tWkdFgy3LQJWUWN90kPFJBI5MQTTcjq0o0x6x2TjGLlRReJkTsMPsVJLmcBFRDuNs5QEicpxnESX0SNRJC3VUAzqRF4UUPQMNsbC8LyPIMmuK8XCAA */
-createMachine({
+
+    /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTjasUpRWk66qZVEq1VUUlCk0UtNJKS0RLJeUstddUFFui2706-MFIeVCgoegBBMZfQIhcKsGacObxUCJDYSaSKURMRSyeqSUTSEqyVRHJInM4XMonWSyTRXJ6edo+d6kISwHiUHhgfCUIiM7oACkUXMUAEpSBTXl1GGCorM4gsEogSqsmLJpPkFHItJJlNjDIhSrJ8PJaqoZBjnJJia53M8vB1gWEuLgoKQIHgmdaAG5tfCW0IAEQZlGmooh4sWJlK8nwqgaJPU9VUDhx6xDD1lYdq8ssWPJLwtQ1C1ttYG63VQ3XwyFoDKIhawbqzXvpvo4sXmgYQ9mkod2N0ktXkKLKolj+VDKNK2wRJXkqgn6fNBCIY2CmAg5CodGFkXrkIl0MQ8jk+DH2nH2mqahxw4qVSYBzUdnlZKeuFQEDg4On4IbUOEJgVaw2diY212fZDnVJI5HKa4FFTPUVD2UQp0pQgSDfDcm0Rcx7GRHY8j2E5pBxUx5T3dFpQ2dREUxeDBXeZCA0lZsSikPJ5C0JRFBuZU5Rxcc9y0WVlHlY8jSaSjMxBHMaMbOiCLbPi2JVRQjRkPsQPsVJLmcBFRDuFEVREmc5wXCSP0SNRJD3HUI0vOwuT0EDbHwS4dWw6wnGuNw3CAA */
+    createMachine({
         id: 'pokemon',
         initial: 'off',
         predictableActionArguments: true,
@@ -49,6 +48,9 @@ createMachine({
                     toggleAutofetch: {
                         actions: 'toggleAutofetch',
                     },
+                    disable: {
+                        target: 'off',
+                    },
                 },
                 after: {
                     [autofetchDelay]: {
@@ -67,17 +69,10 @@ createMachine({
                         target: 'idle',
                     },
                     onError: {
-                        target: 'fucked',
+                        target: 'off',
                     },
                 },
             },
-            fucked: {
-                entry: 'fuckedEntry',
-                on: {
-                    enable: 'idle',
-                },
-            },
-
         },
     }, {
         actions: {
@@ -105,10 +100,6 @@ createMachine({
                 context.autofetch = !context.autofetch
                 console.log(`XStatePokemonSolid.tsx toggleAutofetch AFTER: ${context.autofetch}`)
                 console.log(`XStatePokemonSolid.tsx toggleAutofetch: ${JSON.stringify(event, null, 4)}`)
-            },
-            fuckedEntry: (context, event) => {
-                context.state = 'fucked'
-                console.log(`XStatePokemonSolid.tsx fuckedEntry: ${JSON.stringify(event, null, 4)}`)
             },
         },
         services: {
