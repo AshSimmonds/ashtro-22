@@ -4,7 +4,21 @@ import { createMachine, interpret } from 'xstate'
 
 const artificialDelay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const artificialDelayTime = 1000
+const artificialDelayTime = 666
+
+const autofetchDelay = 3333
+
+const maxFetches = 3
+
+const initialContext = {
+    data: {} as any,
+    error: {} as any,
+    updates: 0,
+    updated: new Date(),
+    idleCount: 0,
+    fetchCount: 0,
+    state: 'off',
+}
 
 const pokemonMachine =
     /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBCt8O3k5J3lZRXlJRVF9IwRZZIBOLXkS8S01VS11Nw8MbDx8QJDQrlwoUgg8MHxOgDcm1qCwgBFKHkoIwRjeflxBRMVVKQVq6RLJUTL5eS0CxElZaRTHbZPKhQrFBuim71H2zu6wACd31Hf8ZFopojfLDPCZTGasOacBbxUCJexMFI6JiqU72SpMPSGRDwqSqJglRSKaz7eT41T3TzNAhEACuwUwEHIVDojAhUXmcSWCWOWkU+B0jlkTEUakkTEOWIQJwR+1E0lUohyVkc8jc7hAuFQEDgkK8MIesUWyxMogRqhKGOk2hKslk2wORwQphRKRK0gqVkkBPldQpjxaxCIkMN+sSpvM9iJeNJJRKpOkjuMvPwpsUccq1hsmmkfr1Pj8YGD0K5sOxJSkWnd5UJ8lE1VOjvkazKGOU0nbKhOVtzVJBHS6Rc5xqdp3w5st1tt9olhStZ0kFQqTFTzlU2h7T1p9Mgg6N3IQ1lkUmkhIJTbqB0kjsU5X5KmqdVqJ7KapcQA */
@@ -12,15 +26,7 @@ const pokemonMachine =
         id: 'pokemon',
         initial: 'off',
         predictableActionArguments: true,
-        context: {
-            data: {} as any,
-            error: {} as any,
-            updates: 0,
-            updated: new Date(),
-            idleCount: 0,
-            fetchCount: 0,
-            state: 'off',
-        },
+        context: initialContext,
         states: {
             off: {
                 on: {
@@ -34,20 +40,7 @@ const pokemonMachine =
                         target: 'fetching',
                     },
                 },
-                after: {
-                    3333: {
-                        target: 'autoFetching',
-                    },
-                },
             },
-            autoFetching: {
-                entry: 'autoFetchEntry',
-                after: {
-                    333: {
-                        target: 'fetching',
-                    },
-                },
-            },                    
             fetching: {
                 entry: 'fetchingEntry',
 
@@ -82,10 +75,6 @@ const pokemonMachine =
                     console.log(`idleEntry waited artificialDelayTime: ${artificialDelayTime}ms`)
                 })
             },
-            autoFetchEntry: (context, event) => {
-                context.state = 'autoFetching'
-                console.log(`autoFetchEntry: ${event.type}`)
-            },
             fetchingEntry: (context, event) => {
                 context.fetchCount++
                 context.state = 'fetching'
@@ -102,20 +91,19 @@ const pokemonMachine =
                 const randomNumber = Math.round(Math.random() * 260) + 1
                 const theUrl = `https://pokeapi.co/api/v2/ability/${randomNumber}`
 
-                try {
-                    return fetch(theUrl)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            context.data = data
-                            context.updated = new Date()
-                            context.updates++
-                            return data
-                        })
-                } catch (error) {
-                    context.error = error
-                    console.error(`Error: ${error}`)
-                    return error as any
+
+                if (context.fetchCount > maxFetches) {
+                    return Promise.reject(`fetchCount > maxFetches: ${context.fetchCount} > ${maxFetches}`)
                 }
+
+                return fetch(theUrl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        context.data = data
+                        context.updated = new Date()
+                        context.updates++
+                        // return data
+                    })
             },
         },
     })
@@ -166,13 +154,46 @@ pokemonMachineService.onDone((theDone) => {
 })
 
 
+
+
+const [autofetch, setAutofetch] = createSignal(true)
+
+
+
 export default function PokemonSolid() {
+
+
+const intervalCownt = setInterval(() => {
+
+    console.log(`intervalCownt: ${intervalCownt}`)
+    // console.log(`intervalCownt: ${}`)
+
+    if (autofetch()) {
+        pokemonMachineService.send('fetch')
+    }
+
+    if (pokemonState().context.fetchCount >= maxFetches) {
+        clearInterval(intervalCownt)
+    }
+
+}, autofetchDelay)
+
+
+
+
+    // setTimeout(() => {
+    //     pokemonMachineService.send('fetch')
+    // }, autofetchDelay)
+
+    // artificialDelay(autofetchDelay).then(() => {
+    //     pokemonMachineService.send('fetch')
+    // })
 
     return (
 
         <div>
             <Show when={pokemonState().value === 'off'}>
-                <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-error">Start</button>
+                <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-accent">Start</button>
             </Show>
             <Show when={pokemonState().value === 'idle'}>
                 <button onclick={() => pokemonMachineService.send("fetch")} class="btn btn-success">Fetch</button>
@@ -181,8 +202,10 @@ export default function PokemonSolid() {
                 <button onclick={() => pokemonMachineService.send("cancel")} class="btn btn-warning">cancel</button>
             </Show>
             <Show when={pokemonState().value === 'fucked'}>
-                <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-success">Fix</button>
+                <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-error">Fix</button>
             </Show>
+
+<input type="checkbox" checked={autofetch()} onclick={() => setAutofetch(!autofetch())} /> autofetch
 
             <ul>
                 <li>
@@ -191,6 +214,10 @@ export default function PokemonSolid() {
 
                 <li>
                     idleCount: <span class="badge text-xl">{pokemonState().context.idleCount}</span>
+                </li>
+
+                <li>
+                    fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount}</span>
                 </li>
 
                 <li>
