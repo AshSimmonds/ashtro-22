@@ -67,33 +67,33 @@ const pokemonMachine =
     }, {
         actions: {
             idleEntry: (context, event) => {
-                console.log(`idleEntry: ${event.type}`)
+                console.log(`XStatePokemonSolid.tsx idleEntry: ${event.type}`)
 
                 artificialDelay(artificialDelayTime).then(() => {
                     context.idleCount++
                     context.state = 'idle'
-                    console.log(`idleEntry waited artificialDelayTime: ${artificialDelayTime}ms`)
+                    console.log(`XStatePokemonSolid.tsx idleEntry waited artificialDelayTime: ${artificialDelayTime}ms`)
                 })
             },
             fetchingEntry: (context, event) => {
                 context.fetchCount++
                 context.state = 'fetching'
-                console.log(`fetchingEntry: ${event.type}`)
+                console.log(`XStatePokemonSolid.tsx fetchingEntry: ${event.type}`)
             },
             fuckedEntry: (context, event) => {
                 context.state = 'fucked'
-                console.log(`fuckedEntry: ${JSON.stringify(event, null, 4)}`)
+                console.log(`XStatePokemonSolid.tsx fuckedEntry: ${JSON.stringify(event, null, 4)}`)
             },
         },
         services: {
             fetchData: (context, event) => {
-                console.log(`fetchData: ${event.type}`)
+                console.log(`XStatePokemonSolid.tsx fetchData: ${event.type}`)
                 const randomNumber = Math.round(Math.random() * 260) + 1
                 const theUrl = `https://pokeapi.co/api/v2/ability/${randomNumber}`
 
 
                 if (context.fetchCount > maxFetches) {
-                    return Promise.reject(`fetchCount > maxFetches: ${context.fetchCount} > ${maxFetches}`)
+                    return Promise.reject(`XStatePokemonSolid.tsx fetchCount > maxFetches: ${context.fetchCount} > ${maxFetches}`)
                 }
 
                 return fetch(theUrl)
@@ -117,40 +117,40 @@ const pokemonMachineService = interpret(pokemonMachine).start()
 const [pokemonState, setPokemonState] = createSignal(pokemonMachineService.getSnapshot())
 
 pokemonMachineService.onTransition((newState) => {
-    console.log(`onTransition newState.value: ${newState.value}`)
+    console.log(`XStatePokemonSolid.tsx onTransition newState.value: ${newState.value}`)
 
     if (newState.value !== 'asdf') {
         setPokemonState(newState)
     } else {
         artificialDelay(artificialDelayTime).then(() => {
             setPokemonState(newState)
-            console.log(`onTransition waited artificialDelayTime: ${artificialDelayTime}ms`)
+            console.log(`XStatePokemonSolid.tsx onTransition waited artificialDelayTime: ${artificialDelayTime}ms`)
         })
     }
 })
 
 pokemonMachineService.onChange((theContext) => {
-    console.log(`onChange theContext.state: ${theContext.state}`)
+    console.log(`XStatePokemonSolid.tsx onChange theContext.state: ${theContext.state}`)
 })
 
 
 pokemonMachineService.onEvent((theEvent) => {
-    console.log(`onEvent theEvent: ${theEvent.type}`)
+    console.log(`XStatePokemonSolid.tsx onEvent theEvent: ${theEvent.type}`)
 })
 
 
 pokemonMachineService.onSend((theSend) => {
-    console.log(`onSend theSend: ${theSend}`)
+    console.log(`XStatePokemonSolid.tsx onSend theSend: ${theSend}`)
 })
 
 
 pokemonMachineService.onStop(() => {
-    console.log(`onStop no context`)
+    console.log(`XStatePokemonSolid.tsx onStop no context`)
 })
 
 
 pokemonMachineService.onDone((theDone) => {
-    console.log(`onDone theDone: ${JSON.stringify(theDone, null, 4)}`)
+    console.log(`XStatePokemonSolid.tsx onDone theDone: ${JSON.stringify(theDone, null, 4)}`)
 })
 
 
@@ -163,20 +163,21 @@ const [autofetch, setAutofetch] = createSignal(true)
 export default function PokemonSolid() {
 
 
-const intervalCownt = setInterval(() => {
+    const intervalCownt = setInterval(() => {
 
-    console.log(`intervalCownt: ${intervalCownt}`)
-    // console.log(`intervalCownt: ${}`)
+        console.log(`XStatePokemonSolid.tsx PokemonSolid() intervalCownt: ${intervalCownt}`)
+        // console.log(`intervalCownt: ${}`)
 
-    if (autofetch()) {
-        pokemonMachineService.send('fetch')
-    }
+        if (autofetch()) {
+            pokemonMachineService.send('fetch')
+        }
 
-    if (pokemonState().context.fetchCount >= maxFetches) {
-        clearInterval(intervalCownt)
-    }
+        if (pokemonState().context.fetchCount >= maxFetches) {
+            clearInterval(intervalCownt)
+            setAutofetch(false)
+        }
 
-}, autofetchDelay)
+    }, autofetchDelay)
 
 
 
@@ -205,7 +206,7 @@ const intervalCownt = setInterval(() => {
                 <button onclick={() => pokemonMachineService.send("enable")} class="btn btn-error">Fix</button>
             </Show>
 
-<input type="checkbox" checked={autofetch()} onclick={() => setAutofetch(!autofetch())} /> autofetch
+            <input type="checkbox" checked={autofetch()} onclick={() => setAutofetch(!autofetch())} /> autofetch
 
             <ul>
                 <li>
