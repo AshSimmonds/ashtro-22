@@ -1,4 +1,4 @@
-import { counterMachineService, counterMachine } from '../machines/counter'
+import { counterMachineService, counterMachine } from '../deus-ex/counter'
 import { useState, useEffect } from 'preact/hooks'
 import type { StateFrom } from 'xstate'
 
