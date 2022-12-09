@@ -25,7 +25,7 @@ const fetcherMachine =
         id: 'fetcher',
         initial: 'off',
         predictableActionArguments: true,
-        tsTypes: {} as import("./fetcherMachine.typegen").Typegen0,
+        tsTypes: {} as import("./exBasibusMachina.typegen").Typegen0,
         context: initialContext,
         states: {
             off: {
