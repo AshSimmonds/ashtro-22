@@ -1,5 +1,5 @@
 <script>
-    import { counterMachineService } from "../machines/counter"
+    import { counterMachineService } from "../deus-ex/counter"
 
     let counterState
 

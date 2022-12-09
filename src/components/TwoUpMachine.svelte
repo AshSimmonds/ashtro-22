@@ -1,5 +1,5 @@
 <script>
-    import { getInstance } from "../machines/twoUpMachine"
+    import { getInstance } from "../deus-ex/twoUpMachine"
 
     const service = getInstance()
     let state

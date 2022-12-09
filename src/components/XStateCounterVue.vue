@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { useActor } from "@xstate/vue"
-import { counterMachineService } from "../machines/counter"
+import { counterMachineService } from "../deus-ex/counter"
 
 export default {
     setup() {

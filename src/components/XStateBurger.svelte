@@ -1,5 +1,5 @@
 <script>
-    import { burgerMachineService } from "../machines/burger"
+    import { burgerMachineService } from "../deus-ex/burger"
 
     let burgerState
 
