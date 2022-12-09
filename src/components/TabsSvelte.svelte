@@ -10,7 +10,13 @@
         <label
             class="tab-control tab tab-lifted"
             class:tab-active={activeTabIndex === index}
-            on:click={() => (activeTabIndex = index)}
+            on:click={() => (activeTabIndex = index)} on:keydown={e => {
+                if (e.key === "ArrowLeft") {
+                    activeTabIndex = index - 1
+                } else if (e.key === "ArrowRight") {
+                    activeTabIndex = index + 1
+                }
+            }}
         >
             {tab}
         </label>
