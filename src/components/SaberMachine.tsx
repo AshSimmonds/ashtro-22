@@ -1,5 +1,5 @@
 import { Show } from "solid-js"
-import { fetcherMachineService, fetcherState } from "../deus-ex/fetcherMachine"
+import { fetcherMachineService, fetcherState } from "../deus-ex/exBasibusMachina"
 
 
 export default function SaberMachine() {
