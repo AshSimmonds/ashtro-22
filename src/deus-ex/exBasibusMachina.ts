@@ -11,7 +11,7 @@ const initialContext = {
     updates: 0,
     updated: new Date(),
     idleCount: 0,
-    maxFetches: 3,
+    maxFetches: 69,
     totalFetchCount: 0,
     fetchCount: 0,
     state: 'off',
@@ -95,8 +95,8 @@ const fetcherMachine =
         services: {
             fetchData: (context, event) => {
                 console.log(`fetcherMachine.ts fetchData: ${event.type}`)
-                const randomNumber = Math.round(Math.random() * 260) + 1
-                const theUrl = `https://pokeapi.co/api/v2/ability/${randomNumber}`
+                // const randomNumber = Math.round(Math.random() * 260) + 1
+                const theUrl = `http://api.open-notify.org/iss-now.json`
 
 
                 if (context.fetchCount > context.maxFetches) {

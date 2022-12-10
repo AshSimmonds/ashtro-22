@@ -47,9 +47,7 @@ export default function SaberMachine() {
                 </li>
 
                 <li>data:
-                    <Show when={fetcherState().context.data.effect_entries?.length > 0}>
-                        <span class="badge text-xl">{JSON.stringify(fetcherState().context.data.effect_entries[0].effect, null, 4)}</span>
-                    </Show>
+                    <span class="badge text-xl">{JSON.stringify(fetcherState().context.data, null, 4)}</span>
                 </li>
             </ul>
 
