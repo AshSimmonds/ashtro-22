@@ -6,7 +6,7 @@
         internalEvents: {
           "done.invoke.fetchData": { type: "done.invoke.fetchData"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
 "error.platform.fetchData": { type: "error.platform.fetchData"; data: unknown };
-"xstate.after(3333)#fetcher.idle": { type: "xstate.after(3333)#fetcher.idle" };
+"xstate.after(17777)#fetcher.idle": { type: "xstate.after(17777)#fetcher.idle" };
 "xstate.init": { type: "xstate.init" };
         };
         invokeSrcNameMap: {
@@ -19,7 +19,7 @@
           services: never;
         };
         eventsCausingActions: {
-          "fetchingEntry": "fetch" | "xstate.after(3333)#fetcher.idle";
+          "fetchingEntry": "fetch" | "xstate.after(17777)#fetcher.idle";
 "idleEntry": "done.invoke.fetchData" | "enable";
 "resetFetchCount": "resetFetchCount";
 "toggleAutofetch": "toggleAutofetch";
@@ -31,7 +31,7 @@
           
         };
         eventsCausingServices: {
-          "fetchData": "fetch" | "xstate.after(3333)#fetcher.idle";
+          "fetchData": "fetch" | "xstate.after(17777)#fetcher.idle";
         };
         matchesStates: "fetching" | "idle" | "off";
         tags: never;

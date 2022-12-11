@@ -3,7 +3,7 @@ import { createMachine, interpret } from 'xstate'
 
 // Robotum capere notitia ex basibus
 
-const autofetchDelay = 3333
+const autofetchDelay = 17777
 
 const initialContext = {
     data: {} as any,
