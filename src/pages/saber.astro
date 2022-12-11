@@ -60,8 +60,8 @@ import SaberMachine from "../components/SaberMachine"
                 // Rotate the globe by 0.01 on every frame.
                 currentPhi += 0.006
 
-                let latitude = -34.6
-                let longitude = -58.38
+                let latitude = 0
+                let longitude = 0
                 let mapDotSize = 0.2
 
                 let issStuff = JSON.parse(document.getElementById("issData").innerHTML)
@@ -69,8 +69,8 @@ import SaberMachine from "../components/SaberMachine"
                 // console.log("saber.astro: ", issStuff)
 
                 if (issStuff.iss_position) {
-                    latitude = issStuff.iss_position.latitude
-                    longitude = issStuff.iss_position.longitude
+                    latitude = issStuff.latitude
+                    longitude = issStuff.longitude
                 }
 
                 state.markers = [

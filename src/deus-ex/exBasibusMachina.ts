@@ -96,7 +96,7 @@ const fetcherMachine =
             fetchData: (context, event) => {
                 console.log(`fetcherMachine.ts fetchData: ${event.type}`)
                 // const randomNumber = Math.round(Math.random() * 260) + 1
-                const theUrl = `http://api.open-notify.org/iss-now.json`
+                const theUrl = `https://api.wheretheiss.at/v1/satellites/25544`
 
 
                 if (context.fetchCount > context.maxFetches) {
