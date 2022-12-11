@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import SaberMachine from "../components/SaberMachine"
-
 ---
 
 <Layout title="Saber Astronautics">
@@ -27,7 +26,7 @@ import SaberMachine from "../components/SaberMachine"
         <SaberMachine client:load />
     </main>
 
-    <script type="module" >
+    <script type="module">
         import createGlobe from "https://cdn.skypack.dev/cobe"
 
         let currentPhi = 0
@@ -38,7 +37,7 @@ import SaberMachine from "../components/SaberMachine"
             width: 350,
             height: 350,
             phi: 0, // longitude - 0.00 - 6.28
-            theta: -0.3, // -1.57 (south pole) - 1.57 (north pole)
+            theta: -0.0, // -1.57 (south pole) - 1.57 (north pole)
             dark: 1.0, // 0.0 - 1.0
             diffuse: 1.2, // 0.0 - 5.0
             scale: 1,
@@ -48,35 +47,33 @@ import SaberMachine from "../components/SaberMachine"
             markerColor: [0.1, 0.5, 1],
             glowColor: [0, 0.5, 0.5],
             offset: [0, 0],
-            markers: [
-                { location: [37.7595, -122.4367], size: 0.03 },
-                { location: [40.7128, -74.006], size: 0.1 },
-            ],
+            opacity: 0.8,
+            markers: [],
             onRender: (state) => {
                 // Called on every animation frame.
                 // `state` will be an empty object, return updated params.
                 state.phi = currentPhi
 
                 // Rotate the globe by 0.01 on every frame.
-                currentPhi += 0.006
+                currentPhi += 0.003
 
                 let latitude = 0
                 let longitude = 0
                 let mapDotSize = 0.2
 
-                let issStuff = JSON.parse(document.getElementById("issData").innerHTML)
+                let issStuff = JSON.parse(
+                    document.getElementById("issData").innerHTML
+                )
 
                 // console.log("saber.astro: ", issStuff)
 
-                if (issStuff.iss_position) {
+                if (issStuff.latitude) {
                     latitude = issStuff.latitude
                     longitude = issStuff.longitude
+                    state.markers = [
+                        { location: [latitude, longitude], size: mapDotSize },
+                    ]
                 }
-
-                state.markers = [
-                    { location: [latitude, longitude], size: mapDotSize },
-                ]
-
             },
         })
     </script>

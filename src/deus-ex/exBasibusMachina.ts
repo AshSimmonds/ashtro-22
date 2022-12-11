@@ -15,7 +15,7 @@ const initialContext = {
     totalFetchCount: 0,
     fetchCount: 0,
     state: 'off',
-    autofetch: false,
+    autofetch: true,
 }
 
 const fetcherMachine =
