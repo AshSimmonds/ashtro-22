@@ -34,6 +34,7 @@
     "@rive-app/canvas": "^1.0.89",
     "@xstate/react": "^3.0.1",
     "@xstate/vue": "^2.0.0",
+    "cobe": "^0.6.2",
     "compress-json": "^2.1.2",
     "daisyui": "^2.24.0",
     "flamethrower-router": "^0.0.0-meme.12",

@@ -1,3 +1,4 @@
+import { createSignal } from "solid-js"
 import { fetcherMachineService, fetcherState } from "../deus-ex/exBasibusMachina"
 
 
@@ -6,6 +7,8 @@ export default function SaberMachine() {
     return (
 
         <div>
+            <canvas id="cobe" class="mt-8 mx-auto h-96 border-cyan-800 border-0"
+            ></canvas>
 
             <button onclick={() => fetcherMachineService.send("enable")} disabled={!fetcherState().can('enable')} class="btn btn-accent">Enable</button>
             <button onclick={() => fetcherMachineService.send("fetch")} disabled={!fetcherState().can('fetch')} class="btn btn-success">Fetch</button>
@@ -46,13 +49,23 @@ export default function SaberMachine() {
                 </li>
 
                 <li>data:
-                    <span class="badge text-xl">{JSON.stringify(fetcherState().context.data, null, 4)}</span>
+                    <span id="issData" class="badge text-xl">{JSON.stringify(fetcherState().context.data, null, 4)}</span>
                 </li>
             </ul>
 
             {/* <ErrorBoundary fallback={err => err}> */}
             <pre class="max-w-2xl" >{JSON.stringify(fetcherState(), null, 4)}</pre>
             {/* </ErrorBoundary> */}
+
+
+
+
+
+
+
         </div >
     )
 }
+
+
+
