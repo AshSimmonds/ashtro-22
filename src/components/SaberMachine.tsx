@@ -1,6 +1,21 @@
 import { fetcherMachineService, fetcherState } from "../deus-ex/exBasibusMachina"
 
 
+import * as fs from "node:fs/promises"
+// import { Code } from "astro/components"
+
+const localDataUrl = new URL("../data/spacecock.json", import.meta.url)
+
+// const deployedDataUrl = 'https://g0.wtf/aoc/aoc202202.txt'
+// const deployedDataTestUrl = 'https://g0.wtf/aoc/aoc202202-testdata.txt'
+
+// LOCAL DATA
+const dataSpaceCock = await fs.readFile(localDataUrl, "utf-8")
+
+console.log(`SaberMachine.tsx dataSpaceCock`, dataSpaceCock)
+
+
+
 export default function SaberMachine() {
 
     return (

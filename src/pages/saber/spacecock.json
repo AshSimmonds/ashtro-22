@@ -1,0 +1,85 @@
+{
+    "Id": "d205abc7-46a9-40ad-99b3-cf5545337918",
+    "Name": "test",
+    "Source": "SC",
+    "ActiveAssetListIndex": 0,
+    "AssetLists": [
+      {
+        "Name": "Default List",
+        "Sats": [
+          "CS001"
+        ],
+        "HiddenSatIds": [],
+        "Sensors": [],
+        "HiddenSensorIds": []
+      }
+    ],
+    "UserSatData": [
+      {
+        "SatNo": "CS001",
+        "Nickname": "",
+        "CustomName": "CHONKY",
+        "Line1": null,
+        "Line2": null,
+        "CountryCode": "",
+        "SemiMajorAxisKm": 6730.9606769368356,
+        "Eccentricity": 0.0006703,
+        "Inclination": 51.6416,
+        "Raan": 247.4627,
+        "ArgPeri": 130.536,
+        "TrueAnomaly": 324.984744569452,
+        "Epoch": "2008-09-20T12:25:40.104Z",
+        "Ephemeris": null,
+        "IsCustom": true
+      }
+    ],
+    "UserSensorData": [],
+    "FocusedSat": null,
+    "FocusedSensor": null,
+    "Visuals": [
+      {
+        "ToolType": "Orbit",
+        "InvolvedSceneObjectIds": [
+          "CS001"
+        ]
+      },
+      {
+        "ToolType": "GeoBeltOrbit",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltMarker",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltMarker",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltMarker",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltMarker",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltMarker",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltMarker",
+        "InvolvedSceneObjectIds": []
+      },
+      {
+        "ToolType": "GeoBeltLonHover",
+        "InvolvedSceneObjectIds": [
+          null
+        ]
+      }
+    ],
+    "SimulationTime": "2022-12-11T13:21:51.737Z",
+    "SimulationSpeed": 60.0,
+    "ScenarioEndTime": null,
+    "Status": null
+  }
