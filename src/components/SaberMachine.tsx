@@ -10,9 +10,9 @@ const localDataUrl = new URL("../data/spacecock.json", import.meta.url)
 // const deployedDataTestUrl = 'https://g0.wtf/aoc/aoc202202-testdata.txt'
 
 // LOCAL DATA
-const dataSpaceCock = await fs.readFile(localDataUrl, "utf-8")
+// const dataSpaceCock = await fs.readFile(localDataUrl, "utf-8")
 
-console.log(`SaberMachine.tsx dataSpaceCock`, dataSpaceCock)
+// console.log(`SaberMachine.tsx dataSpaceCock`, dataSpaceCock)
 
 
 
