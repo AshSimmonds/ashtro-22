@@ -1,4 +1,4 @@
-import { createSignal, Show } from "solid-js"
+import { createSignal, ErrorBoundary, Show } from "solid-js"
 import { createMachine, interpret } from 'xstate'
 // import { ErrorBoundary } from "solid-js"
 
@@ -24,11 +24,10 @@ const initialContext = {
 
 const pokemonMachine =
 
-    /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTjasUpRWk66qZVEq1VUUlCk0UtNJKS0RLJeUstddUFFui2706-MFIeVCgoegBBMZfQIhcKsGacObxUCJDYSaSKURMRSyeqSUTSEqyVRHJInM4XMonWSyTRXJ6edo+d6kISwHiUHhgfCUIiM7oACkUXMUAEpSBTXl1GGCorM4gsEogSqsmLJpPkFHItJJlNjDIhSrJ8PJaqoZBjnJJia53M8vB1gWEuLgoKQIHgmdaAG5tfCW0IAEQZlGmooh4sWJlK8nwqgaJPU9VUDhx6xDD1lYdq8ssWPJLwtQ1C1ttYG63VQ3XwyFoDKIhawbqzXvpvo4sXmgYQ9mkod2N0ktXkKLKolj+VDKNK2wRJXkqgn6fNBCIY2CmAg5CodGFkXrkIl0MQ8jk+DH2nH2mqahxw4qVSYBzUdnlZKeuFQEDg4On4IbUOEJgVaw2diY212fZDnVJI5HKa4FFTPUVD2UQp0pQgSDfDcm0Rcx7GRHY8j2E5pBxUx5T3dFpQ2dREUxeDBXeZCA0lZsSikPJ5C0JRFBuZU5Rxcc9y0WVlHlY8jSaSjMxBHMaMbOiCLbPi2JVRQjRkPsQPsVJLmcBFRDuFEVREmc5wXCSP0SNRJD3HUI0vOwuT0EDbHwS4dWw6wnGuNw3CAA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QAcD2BrMBbVA7AdKgGZEDEYuAhgEYA2YA2gAwC6iKqsAlgC5d7sQAD0QA2UfgAsAJgCMAVgDMTSQHZlkyQA5ZAGhABPRAFoF+OaNXTRyptK2jZWrQF8X+tJhwEuEeqSIwHgBjAAtmNiQQNG4+ASiRBGNFVXxZR2cVOUkmLWl5fSMEWQBOJnwmEukVEtUmeSVpGTcPDGw8fF9-ACc4IIAxILCAYVQAV1weCMEY3n5cQUTjasUpRWk66qZVEq1VUUlCk0UtNJKS0RLJeUstddUFFui2706-MFIeVCgoegBBMZfQIhcKsGacObxUCJDYSaSKURMRSyeqSUTSEqyVRHJInM4XMonWSyTRXJ6edo+d6kCBcWA0ejTKKzOILBKIZSraqSLGKNQqSS1AqGEwOfGXJE6EmCxTkl4dLofISwHiUHhgfCUIjq7oACkUBsUAEpSBTXoqmRxYvNFogSqsmLJpPkFHItJJlNiRcVMfh5LVVDIMc4eU45V4OsCwlxcFAaXgNTGAG5tfBR0IAETVlEtz2tUOEJlK8nwqgaJPU9VUDhx6xLD0dZdqzssWPDlLTQ1CMbjYG63VQ3XwyFoaqIg6wnZBWdVuZZNvZCHs0lLuxugrLKLKolr+VLKNK2wRJXkqjPbncIFwqAgcHBEbZVshj8LSRdaw2diY212+0O3uWFEpHkBQHhRU9q3UdtXmIIhwXzF9EkRcx7GRHY8j2E5pBxUxnXwC4MXudREUxaCFXeeDn1tJcSikPJ5C0JRFBud0nRxU98K0R1lGdbkeSaMiCHTHtKNZajcNXbjmI9PkSWsHF7FSS5nARUQ7hRD0LxcIA */
     createMachine({
         id: 'pokemon',
         initial: 'off',
-        predictableActionArguments: true,
         context: initialContext,
         states: {
             off: {
@@ -55,7 +54,7 @@ const pokemonMachine =
                 after: {
                     [autofetchDelay]: {
                         target: 'fetching',
-                        cond: (context) => context.autofetch,
+                        guard: (context) => context.autofetch,
                     },
                 },
             },
@@ -69,6 +68,10 @@ const pokemonMachine =
                         target: 'idle',
                     },
                     onError: {
+                        actions(context, event, meta) {
+                            context.error = event.data
+                            console.error(`XStatePokemonSolid.tsx fetching onError: ${event.type} ${event.data} ${meta.state}`)
+                        },
                         target: 'off',
                     },
                 },
@@ -102,7 +105,8 @@ const pokemonMachine =
                 console.log(`XStatePokemonSolid.tsx toggleAutofetch: ${JSON.stringify(event, null, 4)}`)
             },
         },
-        services: {
+
+        actors: {
             fetchData: (context, event) => {
                 console.log(`XStatePokemonSolid.tsx fetchData: ${event.type}`)
                 const randomNumber = Math.round(Math.random() * 260) + 1
@@ -112,6 +116,10 @@ const pokemonMachine =
                 if (context.fetchCount > maxFetches) {
                     return Promise.reject(`XStatePokemonSolid.tsx fetchCount > maxFetches: ${context.fetchCount} > ${maxFetches}`)
                 }
+
+                const theFetchResponse = fetch(theUrl)
+
+                console.log(`XStatePokemonSolid.tsx fetchData theFetchResponse: ${theFetchResponse}`)
 
                 return fetch(theUrl)
                     .then((response) => response.json())
@@ -146,28 +154,17 @@ pokemonMachineService.onTransition((newState) => {
     }
 })
 
-pokemonMachineService.onChange((theContext) => {
-    console.log(`XStatePokemonSolid.tsx onChange theContext.state: ${theContext.state}`)
-})
 
 
-pokemonMachineService.onEvent((theEvent) => {
-    console.log(`XStatePokemonSolid.tsx onEvent theEvent: ${theEvent.type}`)
-})
 
-
-pokemonMachineService.onSend((theSend) => {
-    console.log(`XStatePokemonSolid.tsx onSend theSend: ${theSend}`)
-})
-
-
-pokemonMachineService.onStop(() => {
-    console.log(`XStatePokemonSolid.tsx onStop no context`)
-})
 
 
 pokemonMachineService.onDone((theDone) => {
     console.log(`XStatePokemonSolid.tsx onDone theDone: ${JSON.stringify(theDone, null, 4)}`)
+})
+
+pokemonMachineService.onTransition((theTransition) => {
+    console.log(`XStatePokemonSolid.tsx onTransition theTransition: ${JSON.stringify(theTransition, null, 4)}`)
 })
 
 
@@ -186,9 +183,9 @@ export default function PokemonSolid() {
     return (
 
         <div>
-            <button onclick={() => pokemonMachineService.send("enable")} disabled={!pokemonState().can('enable')} class="btn btn-accent">Enable</button>
-            <button onclick={() => pokemonMachineService.send("fetch")} disabled={!pokemonState().can('fetch')} class="btn btn-success">Fetch</button>
-            <button onclick={() => pokemonMachineService.send("cancel")} disabled={!pokemonState().can('cancel')} class="btn btn-warning">Cancel</button>
+            <button onclick={() => pokemonMachineService.send({ type: 'enable' })} disabled={!pokemonState().can({ type: 'enable' })} class="btn btn-accent">Enable</button>
+            <button onclick={() => pokemonMachineService.send({ type: 'fetch' })} disabled={!pokemonState().can({ type: 'fetch' })} class="btn btn-success">Fetch</button>
+            <button onclick={() => pokemonMachineService.send({ type: 'cancel' })} disabled={!pokemonState().can({ type: 'cancel' })} class="btn btn-warning">Cancel</button>
 
 
             <ul>
@@ -198,7 +195,7 @@ export default function PokemonSolid() {
 
                 <li>
                     Auto-fetch: <span class="badge text-xl">{pokemonState().context.autofetch.toString()}</span>
-                    <button onclick={() => pokemonMachineService.send("toggleAutofetch")} disabled={!pokemonState().can("toggleAutofetch")} class="btn btn-accent btn-outline" >toggle</button>
+                    <button onclick={() => pokemonMachineService.send({ type: "toggleAutofetch" })} disabled={!pokemonState().can({ type: "toggleAutofetch" })} class="btn btn-accent btn-outline" >toggle</button>
                 </li>
 
                 <li>
@@ -207,7 +204,7 @@ export default function PokemonSolid() {
 
                 <li>
                     current fetchCount: <span class="badge text-xl">{pokemonState().context.fetchCount} / {maxFetches}</span>
-                    <button onclick={() => pokemonMachineService.send("resetFetchCount")} disabled={!pokemonState().can("resetFetchCount")} class="btn btn-accent btn-outline" >reset</button>
+                    <button onclick={() => pokemonMachineService.send({ type: "resetFetchCount" })} disabled={!pokemonState().can({ type: "resetFetchCount" })} class="btn btn-accent btn-outline" >reset</button>
                 </li>
 
                 <li>total fetches: <span class="badge text-xl">{pokemonState().context.totalFetchCount}</span></li>
@@ -231,9 +228,9 @@ export default function PokemonSolid() {
                 </li>
             </ul>
 
-            {/* <ErrorBoundary fallback={err => err}> */}
-            <pre class="max-w-2xl" >{JSON.stringify(pokemonState(), null, 4)}</pre>
-            {/* </ErrorBoundary> */}
+            <ErrorBoundary fallback={err => err}>
+                <pre class="max-w-2xl" >{JSON.stringify(pokemonState(), null, 4)}</pre>
+            </ErrorBoundary>
         </div >
     )
 }

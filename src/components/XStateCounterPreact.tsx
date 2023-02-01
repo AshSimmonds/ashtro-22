@@ -24,7 +24,7 @@ export default function PreactCounter() {
             <button onClick={() => counterMachineService.send('increment')} className="btn btn-circle text-xl">+</button>
 
             <p>
-                State.value: <span className="badge text-xl"  >{counterState.value.toString()}</span>
+                State.value: <span className="badge text-xl"  >{counterState?.value ? counterState.value.toString() : ''}</span>
             </p>
 
             <button onClick={() => counterMachineService.send("disable")} className="btn btn-warning" >Disable</button>
