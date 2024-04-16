@@ -1,7 +1,6 @@
-# ASHTRON
+# ASHTRO 2022
 
-THIS IS ASHTRON
+## Update 17-04-2024
 
-Alternate URL for anti `.wtf` networks:  
-  
-- https://ashtro.vercel.app  
+Just want to re-deploy for archives, it had some cool Advent Of Code stuff on it and some other experiments like with XState etc.
+
